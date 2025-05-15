@@ -1,0 +1,140 @@
+Oi Cristian, creio que esteja perguntando sobre a remoção da árvore de busca, que é mais complicada. Se for de árvores ordinárias, essa solução também serve. 
+
+Assumindo então árvores de busca, a remoção a seguir executa em tempo médio O(log N) (mas pior caso O(N)).
+
+A primeira parte consiste em achar o nó X a ser removido, que é uma busca comum. Ao encontrá-lo, verifica-se se o nó possui filho à esquerda. Caso não tenha, basta remover X da árvore de busca T e "emendar" a árvore, de modo que o filho à direita ocupe o espaço de filho que X ocupava antes. Imagine o exemplo: Y tem filho à esquerda X, que não possui filho à esquerda e possui filho à direita Z (possivelmente nulo). Remove-se X da árvore e o novo filho à esquerda de Y passa a ser Z.
+
+Caso X tenha filho à esquerda, a ideia é encontrar o maior elemento entre os descendentes de X à esquerda. Digamos que esse nó seja M. Note que esse nó pode ocupar a posição que X atualmente ocupa na árvore, sem quebrar as propriedades de uma árvore de busca. Assim, removemos M da árvore (ligando o pai de M ao filho esquerdo de M) e fazemos M ocupar a posição de X, com os mesmos filhos à esquerda e a direita de X. O algoritmo completo fica assim.
+
+Nesse algoritmo é muito conveniente usar ponteiros para ponteiros. Como não fizemos nem um exemplo desse em aula, passo também a tradução dele para C, pois pode ajudar. Link: 
+
+https://dontpad.com/aed1-p2
+
+procedimento Remove(ref T: ^Nó, x: Inteiro): 
+    // remove o nó associado ao elemento x, se existente
+    se T^.E = x então
+        RemoveNó(@T)
+    senão se T^.E > x então
+         Remove(T^.Esq, x)
+    senão
+         Remove(T^.Dir, x)
+
+procedimento RemoveNó(X: ^^Nó):
+    // remove o nó X^
+   var Xrem: ^Nó <-- X^
+    se X^^.Esq = NULO então
+        X^ <-- X^^.Dir
+    senão
+        var M: ^^Nó <-- @(X^^.Esq)
+        enquanto M^^.Dir != NULO faça
+             M <-- @(M^^.Dir)
+        var Mrem <-- M^
+        M^ <- M^^.Esq
+        X^ <- Mrem
+        Mrem^.Esq <-- Xrem^.Esq
+        Mrem^.Dir <-- Xrem^.Dir    desalocar(Xrem)
+        
+        
+        
+        
+        
+// Em C:
+
+/*
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+	int E;
+	No * Esq;
+	No * Dir;
+} No;
+
+
+void Insere(No * &T, int e[], int &i) {
+	if (e[i] == 0) {
+		i++;
+		T = NULL;
+	} else  {
+		T = (No *) malloc(sizeof(No));
+		T->E = e[i]; i++;
+		Insere(T->Esq, e, i);
+		Insere(T->Dir, e, i);
+	}
+}
+
+void Destroi(No * &T) {
+	if (T != NULL) {
+		Destroi(T->Esq);
+		Destroi(T->Dir);
+		free(T);
+		T = NULL;
+	}
+}
+
+void RemoveNo(No ** X) {
+    // remove o nó X^
+	No * Xrem = *X;
+    if ((*X)->Esq == NULL) {
+        *X = (*X)->Dir;
+    } else {
+        No ** M =  &((*X)->Esq);
+        while ((*M)->Dir != NULL) {
+             M = &((*M)->Dir);
+        }
+        No * Mrem = *M;    
+        *M = (*M)->Esq;    
+        *X = Mrem;
+        Mrem->Esq = Xrem->Esq;
+        Mrem->Dir = Xrem->Dir;
+    }
+    free(Xrem);
+}
+
+void Remove(No * &T, int x) {
+    // remove o nó associado ao elemento x, se existente
+    if (T->E == x) {
+        RemoveNo(&T);
+    } else if (T->E > x) {
+		Remove(T->Esq, x);
+	} else {
+		Remove(T->Dir, x);
+	}
+}
+
+void Escreve(No * T) {
+	if (T != NULL) {
+		printf("(E=%d, Esq=%d, Dir=%d)\n", T->E, (T->Esq == NULL ? 0 : T->Esq->E), (T->Dir == NULL ? 0 : T->Dir->E));
+		Escreve(T->Esq); Escreve(T->Dir);
+	}
+}
+
+int main() {
+	No * T = NULL; 
+	int e[31] = {8, 4, 2, 1, 0, 0, 3, 0, 0, 6, 5, 0, 0, 7, 0, 0, 12, 10, 9, 0, 0, 11, 0, 0, 14, 13, 0, 0, 15, 0, 0};
+	int i=0;
+	Insere(T,e,i);
+	Escreve(T);
+
+	Remove(T, 8);
+	printf("\n");
+	Escreve(T);
+
+	Remove(T, 7);
+	printf("\n");
+	Escreve(T);
+
+	Remove(T, 6);
+	printf("\n");
+	Escreve(T);
+
+	Remove(T, 12);
+	printf("\n");
+	Escreve(T);
+	
+	return 0;
+}
+
+*/
+        
