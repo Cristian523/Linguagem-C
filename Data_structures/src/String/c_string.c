@@ -442,7 +442,7 @@ bool string_find(const String* cadeia, const String* sub, int* start, int* end) 
 bool string_find_cstr(const String* cadeia, const char* sub_caracteres, int* start, int* end) {   // Usa a função anterior
     if (cadeia == NULL)
         return false;
-    if (sub_caracteres == NULL || strlen(sub_caracteres) == 0) {
+    if (sub_caracteres == NULL || strcmp(sub_caracteres, "") == 0) {
         *start = 0;  *end = 0;
         return true;
     }
