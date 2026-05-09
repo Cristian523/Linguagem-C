@@ -144,8 +144,8 @@ bool string_remove_all(String* cadeia, char x) {    // Remove todas as ocorrênc
 }
 
 bool string_is_valid(const String* cadeia) {  // Verifica se a string é válida
-    if (cadeia == NULL || cadeia->capacity == 0 || cadeia->str == NULL) return true;
-    else return false;
+    if (cadeia == NULL || cadeia->capacity == 0 || cadeia->str == NULL) return false;
+    else return true;
 }
 
 bool string_is_empty(const String* cadeia) {       // Verifica se a string é vazia
@@ -239,6 +239,12 @@ int string_compare(const String* cadeia1, const String* cadeia2) {       // Comp
         if (cadeia1 == NULL || cadeia2 == NULL)
                 return INT_MIN;    // só retornando algo sem sentido
         return strcmp(cadeia1->str, cadeia2->str);
+}
+
+int string_compare_cstr(const String* cadeia, const char* caracteres) {   // compara string com vetor de caracteres
+        if (cadeia == NULL)
+                return INT_MIN;    // só retornando algo sem sentido
+        return strcmp(cadeia->str, caracteres);
 }
 
 String string_concat_new(const String* cadeia1, const String* cadeia2) {     // Retorna a concatecação entra as duas string em uma nova string (cadeia1 + cadeia2)

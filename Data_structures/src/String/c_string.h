@@ -73,6 +73,9 @@ bool string_at(const String*, int, char*);
 int string_compare(const String*, const String*);        
 // @ Compara duas strings (basicamente usa o strcmp padrão do C, então espere o mesmo comportamento)
 
+int string_compare_cstr(const String*, const char*);
+// @ Compara string com vetor de caracteres (basicamente usa o strcmp padrão do C, então espere o mesmo comportamento)
+
 String string_concat_new(const String*, const String*);         
 // @ Retorna a concatenação entra as duas string em uma nova string (cadeia1 + cadeia2). Se falhar, será retornado uma string vazia ou um dos argumentos como cópia.
 
