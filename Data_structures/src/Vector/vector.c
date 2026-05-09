@@ -5,15 +5,15 @@
 #include "c_string.h"
 
 /* Comparação */
-static int number_comparation(tipo a, tipo b) {
+static int number_comparation(tipo_vector a, tipo_vector b) {
     if (a < b) return -1;
     else if (a > b) return 1;
     else return 0;
 }
 /* Comparação */
 
-static bool increase_size_vector(tipo** vet, int n) {              
-    tipo* array = (tipo*)realloc(*vet, n * sizeof(tipo));
+static bool increase_size_vector(tipo_vector** vet, int n) {              
+    tipo_vector* array = (tipo_vector*)realloc(*vet, n * sizeof(tipo_vector));
     if (array == NULL)  
         return false;
     *vet = array;
@@ -25,7 +25,7 @@ Vector vector_new_with_size(int size) {            // Inicializa um vector com a
     if (size <= 0)
         size = VECTOR_DEFAULT_CAPACITY;
     
-    array.vet = (tipo*)calloc(size, sizeof(tipo));
+    array.vet = (tipo_vector*)calloc(size, sizeof(tipo_vector));
     array.capacity = size;
     
     if (array.vet == NULL)
@@ -35,7 +35,7 @@ Vector vector_new_with_size(int size) {            // Inicializa um vector com a
     return array;
 }
 
-Vector vector_new_with_cvet(const tipo* vetor, int n) {    // Inicializa um vector com uma cópia de um vetor padrão da linguagem C com o seu respectivo tamanho.
+Vector vector_new_with_cvet(const tipo_vector* vetor, int n) {    // Inicializa um vector com uma cópia de um vetor padrão da linguagem C com o seu respectivo tamanho.
     Vector array;
     array.vet = NULL;
     array.length = array.capacity = 0;
@@ -53,7 +53,7 @@ bool vector_is_empty(const Vector* array) {
     else return false;
 }
 
-bool vector_append(Vector* array, tipo x) {               // Adiciona ao final de array o elemento do segundo parâmetro.
+bool vector_append(Vector* array, tipo_vector x) {               // Adiciona ao final de array o elemento do segundo parâmetro.
     if (array == NULL || array->vet == NULL)
         return false;
     int n = array->length;
@@ -70,7 +70,7 @@ bool vector_append(Vector* array, tipo x) {               // Adiciona ao final d
     return true;
 }
 
-bool vector_insert(Vector* array, int posicao, tipo x) {  // Adiciona o elemento do terceiro parâmetro na posicao indicada no segundo parâmetro.
+bool vector_insert(Vector* array, int posicao, tipo_vector x) {  // Adiciona o elemento do terceiro parâmetro na posicao indicada no segundo parâmetro.
     if (array == NULL || array->vet == NULL)
         return false;
     int n = array->length;
@@ -96,7 +96,7 @@ bool vector_insert(Vector* array, int posicao, tipo x) {  // Adiciona o elemento
     
 }
 
-bool vector_insert_ordered(Vector* array, tipo x) {   // Adiciona o elemento do segundo parâmetro em Vector de forma ordenada
+bool vector_insert_ordered(Vector* array, tipo_vector x) {   // Adiciona o elemento do segundo parâmetro em Vector de forma ordenada
     if (array == NULL || array->vet == NULL)
         return false;
     int n = array->length;
@@ -120,14 +120,14 @@ bool vector_insert_ordered(Vector* array, tipo x) {   // Adiciona o elemento do 
     return true;
 }
 
-bool vector_at(const Vector* array, int posicao, tipo* retorno) {     // Retorna o elemento na posicao indicada 
+bool vector_at(const Vector* array, int posicao, tipo_vector* retorno) {     // Retorna o elemento na posicao indicada 
     if (array == NULL || array->vet == NULL || posicao < 0 || posicao >= array->length)
         return false;
     *retorno = array->vet[posicao];
     return true;
 }
 
-int vector_search(const Vector* array, tipo x) {    // Procura a primeira ocorrência em Vector do elemento do segundo parâmetro.
+int vector_search(const Vector* array, tipo_vector x) {    // Procura a primeira ocorrência em Vector do elemento do segundo parâmetro.
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return -1;
     int posicao = -1;
@@ -140,7 +140,7 @@ int vector_search(const Vector* array, tipo x) {    // Procura a primeira ocorr�
     return posicao;
 }
 
-int vector_binary_search(const Vector* array, tipo x) {    // Procura a primeira ocorrência em Vector do elemento indicado no segundo parâmetro. Só funciona corretamente se o campo vet estiver ordenado!
+int vector_binary_search(const Vector* array, tipo_vector x) {    // Procura a primeira ocorrência em Vector do elemento indicado no segundo parâmetro. Só funciona corretamente se o campo vet estiver ordenado!
     // Válido apenas se array for ordenado!
         if (array == NULL || array->vet == NULL || array->length <= 0)
             return -1;
@@ -159,7 +159,7 @@ int vector_binary_search(const Vector* array, tipo x) {    // Procura a primeira
 	return -1;
 }
 
-bool vector_pop(Vector* array, tipo * retorno) {         // Remove o elemento de Vector da última posição e retorna este elemento no segundo parâmetro.
+bool vector_pop(Vector* array, tipo_vector * retorno) {         // Remove o elemento de Vector da última posição e retorna este elemento no segundo parâmetro.
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;    
     *retorno = array->vet[array->length - 1];
@@ -167,7 +167,7 @@ bool vector_pop(Vector* array, tipo * retorno) {         // Remove o elemento de
     return true;
 }
 
-bool vector_pop_at(Vector* array, int posicao, tipo * retorno) {    // Remove o elemento de Vector da posição indicada no segundo parâmetro e é retornado este elemento no terceiro parâmetro.
+bool vector_pop_at(Vector* array, int posicao, tipo_vector * retorno) {    // Remove o elemento de Vector da posição indicada no segundo parâmetro e é retornado este elemento no terceiro parâmetro.
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
     else if (posicao < 0 || posicao >= array->length)
@@ -183,7 +183,7 @@ bool vector_pop_at(Vector* array, int posicao, tipo * retorno) {    // Remove o 
     
 }
 
-bool vector_remove(Vector* array, tipo x) {             // Remove a primeira ocorrência do elemento do segundo parâmetro em Vector.
+bool vector_remove(Vector* array, tipo_vector x) {             // Remove a primeira ocorrência do elemento do segundo parâmetro em Vector.
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
     int posicao = -1;
@@ -209,7 +209,7 @@ int vector_length(const Vector* array) {          // Retorna o número de elemen
     return array->length;
 }
 
-int vector_count(const Vector* array, tipo x) {    // Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector
+int vector_count(const Vector* array, tipo_vector x) {    // Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector
     if (array == NULL || array->vet == NULL)
         return 0;
     
@@ -234,11 +234,11 @@ void vector_free(Vector* array) {                  // Libera a memória de Vecto
     }
 }
 
-bool vector_copy_cvet(Vector* array, const tipo* vetor, int n) {     // Copia os dados de vetor para Vector. Se já tiver uma memória alocada para Vector, esta será liberada para ter a nova atribuição.
+bool vector_copy_cvet(Vector* array, const tipo_vector* vetor, int n) {     // Copia os dados de vetor para Vector. Se já tiver uma memória alocada para Vector, esta será liberada para ter a nova atribuição.
     if (array == NULL || vetor == NULL || n <= 0)
         return false;
         
-    tipo* vetor_aux = (tipo*) malloc(n * sizeof(tipo));      
+    tipo_vector* vetor_aux = (tipo_vector*) malloc(n * sizeof(tipo_vector));      
     if (vetor_aux == NULL)
         return false;
 
@@ -265,13 +265,13 @@ String vector_to_string(const Vector* array) {  // Retorna uma representação d
     
     String cadeia = string_new_with_size(4 * array->length);    // Colocando um tamanho razoável
     
-    if (!string_is_valid(&cadeia)) {
+    if (string_is_valid(&cadeia)) {
         string_append(&cadeia, '[');
         String string_number = string_new_empty();
         string_free(&string_number);    // liberando a String representado pelo caractere '\0'
         
         for (int i = 0; i < array->length; i++) {
-            string_number = TO_STRING(array->vet[i]);
+            string_number = TO_STRING_VECTOR(array->vet[i]);
             if (!string_is_empty(&string_number)) {
                 string_concat(&cadeia, &string_number);
                 if (i < array->length - 1) {
@@ -283,6 +283,8 @@ String vector_to_string(const Vector* array) {  // Retorna uma representação d
         }
         string_append(&cadeia, ']');
     }
+    else
+        cadeia = string_new_with_cstr("[]");
     
     return cadeia;
 }
@@ -298,8 +300,8 @@ void vector_println(const Vector* array) {
     printf("\n");
 }
 
-tipo* vector_to_cvet(const Vector* array) {
-  tipo* vet_aux = (tipo*) malloc(array->length * sizeof(tipo));
+tipo_vector* vector_to_cvet(const Vector* array) {
+  tipo_vector* vet_aux = (tipo_vector*) malloc(array->length * sizeof(tipo_vector));
   if (vet_aux == NULL)
       return NULL;
       
@@ -309,15 +311,15 @@ tipo* vector_to_cvet(const Vector* array) {
   return vet_aux;
 }
 
-const tipo* vector_cvet(const Vector* array) {
+const tipo_vector* vector_cvet(const Vector* array) {
     return array->vet;
 }
     
 
 /* Ordenação */
 
-static bool Intercalar(tipo* A, int inicio, int meio, int fim) {    // Função privada auxiliar para o MergeSort */
-    tipo* B = (tipo*)malloc((fim - inicio + 1) * sizeof(tipo));
+static bool Intercalar(tipo_vector* A, int inicio, int meio, int fim) {    // Função privada auxiliar para o MergeSort */
+    tipo_vector* B = (tipo_vector*)malloc((fim - inicio + 1) * sizeof(tipo_vector));
     if (B == NULL)
     return false;
     int i = inicio, j = meio + 1, n = 0;
@@ -352,8 +354,8 @@ static bool Intercalar(tipo* A, int inicio, int meio, int fim) {    // Função 
     return true;
 }
 
-static tipo mediana(tipo A, tipo B, tipo C) {    // Função privada auxiliar para o QuickSort */
-	tipo resultado;
+static tipo_vector mediana(tipo_vector A, tipo_vector B, tipo_vector C) {    // Função privada auxiliar para o QuickSort */
+	tipo_vector resultado;
 	if ((number_comparation(C, A) >= 0 && number_comparation(C, B) <= 0) || (number_comparation(C, B) >= 0 && number_comparation(C, A) <= 0))
 		resultado = C;
 	else if ((number_comparation(A, B) >= 0 && number_comparation(A, C) <= 0) || (number_comparation(A, C) >= 0 && number_comparation(A, B) <= 0))
@@ -363,9 +365,9 @@ static tipo mediana(tipo A, tipo B, tipo C) {    // Função privada auxiliar pa
 	return resultado;
 }
 
-static void Particionar(tipo* A, int inicio, int fim, tipo pivo, int* i, int* j) {    // Função privada auxiliar para o QuickSort */
+static void Particionar(tipo_vector* A, int inicio, int fim, tipo_vector pivo, int* i, int* j) {    // Função privada auxiliar para o QuickSort */
 	*i = inicio; *j = fim;
-	tipo aux;
+	tipo_vector aux;
 	while (*i <= *j) {
 		while (number_comparation(A[*i], pivo) < 0) 
 			(*i)++;
@@ -388,7 +390,7 @@ void BubbleSort(Vector* array, int n) {
     for (int i = n - 1; i >= 0; i--) {  // Aqui poderia ser: for (int i = 0; i < n - 1; i++)
 		for (int j = 0; j < i; j++) {	// Aqui poderia ser: for (int j = 0; j < n - i - 1; j++)
 			if (number_comparation(array->vet[j], array->vet[j + 1]) > 0) {
-				tipo aux = array->vet[j];	
+				tipo_vector aux = array->vet[j];	
 				array->vet[j] = array->vet[j + 1];
 				array->vet[j + 1] = aux; 
 			}
@@ -403,7 +405,7 @@ void BubbleSort_Recursivo(Vector* array, int n) {
 	if (n > 1) {
 		for (int i = 1; i < n; i++) {
 			if (number_comparation(array->vet[i - 1], array->vet[i]) > 0) {
-				tipo aux = array->vet[i - 1];
+				tipo_vector aux = array->vet[i - 1];
 				array->vet[i - 1] = array->vet[i];
 				array->vet[i] = aux;
 			}	
@@ -422,7 +424,7 @@ void SelectionSort(Vector* array, int n) {
 			if (number_comparation(array->vet[posicao], array->vet[j]) > 0)  // Olhe aqui com cuidadoooo! Atenção cuidado totallll
 				posicao = j;
 		}	
-		tipo aux = array->vet[posicao];
+		tipo_vector aux = array->vet[posicao];
 		array->vet[posicao] = array->vet[i];
 		array->vet[i] = aux;
 	}
@@ -439,7 +441,7 @@ void SelectionSort_Recursivo(Vector* array, int n) {
 			if (number_comparation(array->vet[posicao], array->vet[i]) < 0)
 				posicao = i;
 		}
-		tipo aux = array->vet[n - 1];
+		tipo_vector aux = array->vet[n - 1];
 		array->vet[n - 1] = array->vet[posicao]; 
 		array->vet[posicao] = aux;
 		
@@ -455,7 +457,7 @@ void InsertionSort(Vector* array, int n) {
 		InsertionSort(array, n - 1);
 		int i = n - 1;
 		while (i > 0 && number_comparation(array->vet[i], array->vet[i - 1]) < 0) {
-			tipo aux = array->vet[i];
+			tipo_vector aux = array->vet[i];
 			array->vet[i] = array->vet[i - 1]; 
 			array->vet[i - 1] = aux;
 			i--;
@@ -483,7 +485,7 @@ void QuickSort(Vector* array, int inicio, int fim) {
     
     if (inicio < fim) {
 		int i, j;
-		tipo pivo;
+		tipo_vector pivo;
 		if (fim - inicio + 1 == 2)  // Se só tiver 2 elementos no vetor
 			pivo = array->vet[inicio];
 		else {

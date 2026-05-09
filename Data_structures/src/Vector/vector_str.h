@@ -108,7 +108,7 @@ bool vector_str_copy(Vector_str*, const Vector_str*);
 // @ Copia os dados do segundo parâmetro para o primeiro. Basicamente chamará a função Vector_str_copy_cvet com o campo vet e seu respectivo tamanho do segundo parâmetro.
 
 String vector_str_to_string(const Vector_str*);    
-// @ Retorna a representação de Vector_str como String. Se a String de retorno não puder ser criada, será retornada uma String vazia.
+// @ Retorna a representação de Vector_str como String. Se a String de retorno não puder ser criada, será retornado "[]".
 
 void vector_str_print(const Vector_str*);        
 // @ Imprime na tela uma representação de Vector_str usando a função vector_str_to_string.

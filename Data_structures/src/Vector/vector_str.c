@@ -76,8 +76,10 @@ bool vector_str_append(Vector_str* array, const String x) {               // Adi
 
 bool vector_str_append_cstr(Vector_str* array, const char* caracteres) {     // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return false;
+    }
     else if (!vector_str_append(array, cadeia)) {
         string_free(&cadeia);
         return false;
@@ -117,8 +119,10 @@ bool vector_str_insert(Vector_str* array, int posicao, const String x) {  // Adi
 
 bool vector_str_insert_cstr(Vector_str* array, int posicao, const char* caracteres) {    // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return false;
+    }
     else if (!vector_str_insert(array, posicao, cadeia)) {
         string_free(&cadeia);
         return false;
@@ -155,8 +159,10 @@ bool vector_str_insert_ordered(Vector_str* array, const String x) {   // Adicion
 
 bool vector_str_insert_ordered_cstr(Vector_str* array, const char* caracteres) {     // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return false;
+    }
     else if (!vector_str_insert_ordered(array, cadeia)) {
         string_free(&cadeia);
         return false;
@@ -187,9 +193,10 @@ int vector_str_search(const Vector_str* array, const String x) {    // Procura a
 
 int vector_str_search_cstr(const Vector_str* array, const char* caracteres) {     // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return -1;
-    
+    }
     int posicao = vector_str_search(array, cadeia);
     string_free(&cadeia);
     return posicao;
@@ -216,8 +223,10 @@ int vector_str_binary_search(const Vector_str* array, const String x) {    // Pr
 
 int vector_str_binary_search_cstr(const Vector_str* array, const char* caracteres) {    // Chama a função anterior
      String cadeia = string_new_with_cstr(caracteres);
-     if (string_is_empty(&cadeia))
+     if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return -1;
+     }
     
     int posicao = vector_str_binary_search(array, cadeia);
     string_free(&cadeia);
@@ -274,8 +283,10 @@ bool vector_str_remove(Vector_str* array, const String x) {             // Remov
 
 bool vector_str_remove_cstr(Vector_str* array, const char* caracteres) {     // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return false;
+    }
     else if (!vector_str_remove(array, cadeia)) {
         string_free(&cadeia);
         return false;
@@ -303,8 +314,10 @@ int vector_str_count(const Vector_str* array, const String x) {    // Retorna a 
 
 int vector_str_count_cstr(const Vector_str* array, const char* caracteres) {   // Chama a função anterior
     String cadeia = string_new_with_cstr(caracteres);
-    if (string_is_empty(&cadeia))
+    if (!string_is_valid(&cadeia)) {
+        string_free(&cadeia);
         return -1;
+    }
     int count = vector_str_count(array, cadeia);
     
     string_free(&cadeia);
@@ -388,7 +401,7 @@ String vector_str_to_string(const Vector_str* array) {  // Retorna uma represent
     
     String cadeia = string_new_with_size(4 * array->length);
     
-    if (!string_is_valid(&cadeia)) {
+    if (string_is_valid(&cadeia)) {
         string_append(&cadeia, '[');
         String string_aux = string_new_empty();
         string_free(&string_aux);     // liberando a memória da String representado pelo caractere '\0'
@@ -406,6 +419,8 @@ String vector_str_to_string(const Vector_str* array) {  // Retorna uma represent
         }
         string_append(&cadeia, ']');
     }
+    else
+        cadeia = string_new_with_cstr("[]");
     
     return cadeia;
 }
