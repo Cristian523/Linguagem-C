@@ -104,7 +104,9 @@ String string_substring(const String*, int, int);
 // @ Retorna a substring da posição do segundo parâmetro até o terceiro. Em caso de problemas nos argumentos ou de memória, será retornado uma string vazia
 
 bool string_find(const String*, const String*, int*, int*);          
-// @ Verifica se existe a string do segundo parâmetro no primeiro. Se existir, será retornado nos terceiro e quarto parâmetro, respectivamente, a primeira e a ultima posição dos caracteres de onde encontrou essa substring, caso contrário, esses últimos dois parâmetros não serão modificados
+/* @ Verifica se existe a string do segundo parâmetro no primeiro. Se existir, será retornado nos terceiro e quarto parâmetro, respectivamente, a primeira e a ultima posição dos caracteres de onde encontrou essa substring, caso contrário, esses últimos dois parâmetros não serão modificados.
+   OBS: Se a substring for uma string vazia, será retornado no terceiro e no quarto parâmetro o numero 0 em cada um
+*/
 
 bool string_find_cstr(const String*, const char*, int*, int*);
 // @ Usa a função anterior, mas antes converte o segundo parâmetro para uma String provisória. Se não conseguir fazer essa conversão ou obtiver qualquer problema da outra função, será retornado false e os terceiro e quarto parâmetros não serão modificados.

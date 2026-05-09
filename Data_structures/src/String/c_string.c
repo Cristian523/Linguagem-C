@@ -409,9 +409,10 @@ bool string_find(const String* cadeia, const String* sub, int* start, int* end) 
         else if (sub->length > cadeia->length)
               return false;
               
-        if (sub->length == 0)
+        if (sub->length == 0) {
+              *start = 0;  *end = 0;
               return true;
-              
+        }
         int j = 0, k = 0;
         for (int i = 0; i < cadeia->length; i++) {
               j = i;
@@ -441,9 +442,10 @@ bool string_find(const String* cadeia, const String* sub, int* start, int* end) 
 bool string_find_cstr(const String* cadeia, const char* sub_caracteres, int* start, int* end) {   // Usa a função anterior
     if (cadeia == NULL)
         return false;
-    if (sub_caracteres == NULL || strlen(sub_caracteres) == 0)
+    if (sub_caracteres == NULL || strlen(sub_caracteres) == 0) {
+        *start = 0;  *end = 0;
         return true;
-    
+    }
     String aux = string_new_with_cstr(sub_caracteres);
     bool result = string_find(cadeia, &aux, start, end);
     string_free(&aux);
