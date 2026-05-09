@@ -29,16 +29,22 @@ bool string_append(String*, char);
 // @ Adiciona um caractere no fim da string. Se necessário, esta função vai tentar aumentar o tamanho da string (em caso de problemas de memória ou o ponteiro do parâmetro for nulo, será retornado false).
 
 void string_clear(String*);                              
-// @ "Deleta" os caracteres da string, sem diminuir a capacidade ou liberar a memória corrente
+// @ "Deleta" os caracteres da string, sem diminuir a capacidade ou liberar a memória corrente. Basicamene assume todos os caracteres como lixo de memória atribuindo ao campo length o valor 0
 
 void string_free(String*);                               
 // @ Libera a memória da string. 
 
 bool string_remove(String*, char);                       
-// @ Remove a primeira ocorrência do caractere x da string.
+// @ Remove a primeira ocorrência do caractere x da string. Se não encontrar o caractere x ou a string for vazia, será retornado false.
 
 bool string_remove_all(String*, char);                   
-// @ Remove todas as ocorrências do caractere x da string.
+// @ Remove todas as ocorrências do caractere x da string. Se a string for vazia, será retornado false.
+
+bool string_pop(String*);
+// @ Remove o ultimo caractere da String. Se a string for vazia, será retornado false.
+
+bool string_pop_at(String*, int);
+// @ Remove o caractere na posição indicada no segundo parâmetro. Se a string for vazia ou a posição do segundo parâmetro for inválida, será retornado false,
 
 bool string_is_valid(const String*);                     
 // @ Verifica se a string é válida. Se o argumento for nulo, o campo capacity for 0 ou o campo str for nulo, será retornado false.
@@ -50,7 +56,7 @@ int string_search(const String*, char);
 // @ Procura a primeira ocorrência do caractere x da string. Se encontrar, será retornado uma posição válida desse caractere. Se não encontrar, será retornado -1
 
 int string_count(const String*, char);                   
-// @ Retorna a quantidade de vezes que o caractere x aparece na string
+// @ Retorna a quantidade de vezes que o caractere do segundo parâmetro aparece na string
 
 void string_print(const String*);                        
 // @ Imprime na tela a string.
@@ -95,10 +101,13 @@ bool string_concat(String*, const String*);
 // @ Concatena a string do segundo parâmetro para o primeiro (faz cadeia1 += cadeia2). Se falhar, a primeira string não será modificada.
 
 String string_substring(const String*, int, int);        
-// @ Retorna a substring da posição start até a posição end. Em caso de problemas nos argumentos ou de memória, será retornado uma string vazia
+// @ Retorna a substring da posição do segundo parâmetro até o terceiro. Em caso de problemas nos argumentos ou de memória, será retornado uma string vazia
 
-bool string_find(const String*, const String*);          
-// @ Verifica se existe a substring sub na string atual
+bool string_find(const String*, const String*, int*, int*);          
+// @ Verifica se existe a string do segundo parâmetro no primeiro. Se existir, será retornado nos terceiro e quarto parâmetro, respectivamente, a primeira e a ultima posição dos caracteres de onde encontrou essa substring, caso contrário, esses últimos dois parâmetros não serão modificados
+
+bool string_find_cstr(const String*, const char*, int*, int*);
+// @ Usa a função anterior, mas antes converte o segundo parâmetro para uma String provisória. Se não conseguir fazer essa conversão ou obtiver qualquer problema da outra função, será retornado false e os terceiro e quarto parâmetros não serão modificados.
 
 String string_from_int(int);                             
 // @ Retorna uma representação de um int como string. Se falhar na atribuição de retorno, será retornado uma string vazia.

@@ -143,6 +143,28 @@ bool string_remove_all(String* cadeia, char x) {    // Remove todas as ocorrênc
 	return true;
 }
 
+bool string_pop(String* cadeia) {   // Remove o ultimo caractere da String.
+    if (string_is_empty(cadeia))
+        return false;
+        
+    cadeia->length--;
+    cadeia->str[cadeia->length] = '\0';
+    return true;
+}
+
+bool string_pop_at(String* cadeia, int posicao) {   // Remove o caractere na posição indicada no segundo parâmetro.
+    if (string_is_empty(cadeia) || posicao < 0 || posicao >= cadeia->length)
+        return false;
+    
+    for (int i = posicao; i < cadeia->length; i++)
+        cadeia->str[i] = cadeia->str[i + 1];
+
+    cadeia->length--;
+    cadeia->str[cadeia->length] = '\0';
+    return true;
+}
+
+
 bool string_is_valid(const String* cadeia) {  // Verifica se a string é válida
     if (cadeia == NULL || cadeia->capacity == 0 || cadeia->str == NULL) return false;
     else return true;
@@ -381,7 +403,7 @@ String string_substring(const String* cadeia, int start, int end) {          // 
 
 }
 
-bool string_find(const String* cadeia, const String* sub) {    // Verifica se existe a substring sub na string atual
+bool string_find(const String* cadeia, const String* sub, int* start, int* end) {    // Verifica se existe a substring sub na string atual
         if (cadeia == NULL || sub == NULL)     // apenas verificação se algum argumento é nulo.
               return false;
         else if (sub->length > cadeia->length)
@@ -395,6 +417,7 @@ bool string_find(const String* cadeia, const String* sub) {    // Verifica se ex
               j = i;
               if (cadeia->str[j] == sub->str[k]) {
                       k++;
+                      int fim_da_sub = j;
                       for (j = i + 1; j < cadeia->length; j++) {
                               if (k == sub->length)
                                       break;
@@ -402,13 +425,29 @@ bool string_find(const String* cadeia, const String* sub) {    // Verifica se ex
                                       break;
                               }
                               k++;
+                              fim_da_sub++;
                       }
-                      if (k == sub->length)   // se percorreu toda a substring, então conseguiu encontrar 
+                      if (k == sub->length)  { // se percorreu toda a substring, então conseguiu encontrar 
+                              *start = i;
+                              *end = fim_da_sub;
                               return true;
+                      }
               }
               k = 0;
         }
         return false;
+}
+
+bool string_find_cstr(const String* cadeia, const char* sub_caracteres, int* start, int* end) {   // Usa a função anterior
+    if (cadeia == NULL)
+        return false;
+    if (sub_caracteres == NULL || strlen(sub_caracteres) == 0)
+        return true;
+    
+    String aux = string_new_with_cstr(sub_caracteres);
+    bool result = string_find(cadeia, &aux, start, end);
+    string_free(&aux);
+    return result;
 }
 
 String string_from_int(int numero) {                    // Retorna uma representação de um int como string.
