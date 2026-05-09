@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "c_string.h"
 
-/* MUDE O tipo_vector E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM tipo_vectorS FLOAT E DOUBLE APENAS */ 
+/* MUDE O TIPO_VECTOR E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM FLOAT E DOUBLE APENAS */ 
 #define PRECISION 2    // Mude a precisão de float e double aqui
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_vector primitivo quer escolher !!!!!!!!!!!!!!!!!
@@ -59,7 +59,7 @@
 
 #endif
 
-/* MUDE O tipo_vector E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM tipo_vectorS FLOAT E DOUBLE APENAS */ 
+/* MUDE O TIPO_VECTOR E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM FLOAT E DOUBLE APENAS */ 
 
 
 typedef struct Vector {
