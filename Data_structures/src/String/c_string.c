@@ -313,7 +313,7 @@ String string_concat_new_cstr_cstr(const char* vet1, const char* vet2) {      //
                 return cadeia;
         }
         
-        char* vet = (char*) malloc((strlen(vet1) + strlen(vet2)) * sizeof(char));
+        char* vet = (char*) malloc((strlen(vet1) + strlen(vet2) + 1) * sizeof(char));
         if (vet == NULL) {
                 cadeia = string_new_with_size(0); 
                 return cadeia;
