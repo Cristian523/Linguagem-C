@@ -48,7 +48,6 @@ bool linked_list_str_next(LinkedList_str* list) {   //  Retorna true se o campo 
 bool linked_list_str_current(const LinkedList_str* list, String* retorno) {   // Retorna no segundo parâmetro o elemento no ponteiro atual
     if (list == NULL || list->inicio == NULL || list->atual == NULL)
         return false;
-    *retorno = string_new_empty();
     string_free(retorno);
     string_copy(retorno, &list->atual->E);
     return true;
@@ -178,7 +177,6 @@ bool linked_list_str_insert_ordered_cstr(LinkedList_str* list, const char* vet) 
 bool linked_list_str_first(const LinkedList_str* list, String* retorno) {  // Retorna no segundo parâmetro o primeiro elemento da lista
     if (list == NULL || list->inicio == NULL)
         return false;
-    *retorno = string_new_empty();
     string_free(retorno);
     string_copy(retorno, &list->inicio->E);
     return true;
@@ -188,7 +186,6 @@ bool linked_list_str_first(const LinkedList_str* list, String* retorno) {  // Re
 bool linked_list_str_last(const LinkedList_str* list, String* retorno) {   //  Retorna no segundo parâmetro o ultimo elemento da lista.
     if (list == NULL || list->inicio == NULL)
         return false;
-    *retorno = string_new_empty();
     string_free(retorno);
     string_copy(retorno, &list->fim->E);
     return true;
