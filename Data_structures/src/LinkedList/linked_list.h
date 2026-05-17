@@ -5,7 +5,7 @@
 #include "c_string.h"
 
 /* MUDE O TIPO_LINKED_LIST E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM FLOAT E DOUBLE APENAS */ 
-#define PRECISION 2    // Mude a precisão de float e double aqui
+#define PRECISION_LINKED_LIST 2    // Mude a precisão de float e double aqui
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_linked_list primitivo quer escolher !!!!!!!!!!!!!!!!!
 
@@ -36,12 +36,12 @@
 #elif defined(TIPO_LINKED_LIST_FLOAT)
 
     typedef float tipo_linked_list;
-    #define TO_STRING_LINKED_LIST(x) string_from_float((x), PRECISION)
+    #define TO_STRING_LINKED_LIST(x) string_from_float((x), PRECISION_LINKED_LIST)
 
 #elif defined(TIPO_LINKED_LIST_DOUBLE)
 
     typedef double tipo_linked_list;
-    #define TO_STRING_LINKED_LIST(x) string_from_double((x), PRECISION)
+    #define TO_STRING_LINKED_LIST(x) string_from_double((x), PRECISION_LINKED_LIST)
 
 #elif defined(TIPO_LINKED_LIST_DOUBLE_G)
 
