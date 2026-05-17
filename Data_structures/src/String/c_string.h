@@ -82,6 +82,12 @@ int string_compare(const String*, const String*);
 int string_compare_cstr(const String*, const char*);
 // @ Compara string com vetor de caracteres (basicamente usa o strcmp padrão do C, então espere o mesmo comportamento)
 
+bool string_equals(const String*, const String*);
+// @ Verifica se as strings são iguais. 
+
+bool string_equals_cstr(const String*, const char*);
+// @ Verifica se o vetor de caracteres do segundo parâmetro é igual ao vetor de caracteres interno da string do primeiro parâmetro.
+
 String string_concat_new(const String*, const String*);         
 // @ Retorna a concatenação entra as duas string em uma nova string (cadeia1 + cadeia2). Se falhar, será retornado uma string vazia ou um dos argumentos como cópia.
 

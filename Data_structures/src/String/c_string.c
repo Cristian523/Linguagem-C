@@ -269,6 +269,14 @@ int string_compare_cstr(const String* cadeia, const char* caracteres) {   // com
         return strcmp(cadeia->str, caracteres);
 }
 
+bool string_equals(const String* cadeia1, const String* cadeia2) {  // Verifica se as strings são iguais.
+    return string_compare(cadeia1, cadeia2) == 0;
+}
+
+bool string_equals_cstr(const String* cadeia, const char* caracteres) {  // Verifica se os caracteres do segundo parâmetro são iguais aos caracteres da string na mesma ordem.  
+    return string_compare_cstr(cadeia, caracteres) == 0;
+}
+
 String string_concat_new(const String* cadeia1, const String* cadeia2) {     // Retorna a concatecação entra as duas string em uma nova string (cadeia1 + cadeia2)
         String cadeia;
         if (cadeia1 == NULL && cadeia2 == NULL) 
