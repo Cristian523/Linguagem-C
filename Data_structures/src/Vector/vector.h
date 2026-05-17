@@ -6,7 +6,7 @@
 #include "c_string.h"
 
 /* MUDE O TIPO_VECTOR E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM FLOAT E DOUBLE APENAS */ 
-#define PRECISION 2    // Mude a precisão de float e double aqui
+#define PRECISION_VECTOR 2    // Mude a precisão de float e double aqui
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_vector primitivo quer escolher !!!!!!!!!!!!!!!!!
 
@@ -37,12 +37,12 @@
 #elif defined(TIPO_VECTOR_FLOAT)
 
     typedef float tipo_vector;
-    #define TO_STRING_VECTOR(x) string_from_float((x), PRECISION)
+    #define TO_STRING_VECTOR(x) string_from_float((x), PRECISION_VECTOR)
 
 #elif defined(TIPO_VECTOR_DOUBLE)
 
     typedef double tipo_vector;
-    #define TO_STRING_VECTOR(x) string_from_double((x), PRECISION)
+    #define TO_STRING_VECTOR(x) string_from_double((x), PRECISION_VECTOR)
 
 #elif defined(TIPO_VECTOR_DOUBLE_G)
 
