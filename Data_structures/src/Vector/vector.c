@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "vector.h"
 #include "c_string.h"
 
 /* Comparação */
 static int number_comparation(tipo_vector a, tipo_vector b) {
+    #if defined(TIPO_VECTOR_FLOAT)
+        if (fabsf(a - b) < 1e-6f) return 0;
+    #elif defined(TIPO_VECTOR_DOUBLE) || defined(TIPO_VECTOR_DOUBLE_G)
+        if (fabs(a - b) < 1e-9) return 0;
+    #endif
+    
     if (a < b) return -1;
     else if (a > b) return 1;
     else return 0;
