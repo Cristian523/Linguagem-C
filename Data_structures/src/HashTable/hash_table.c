@@ -26,7 +26,7 @@ static No_hash** create_new_array(int new_capacity) {    // cria o array de apon
 }
 
 static int dispersal(int capacity, tipo_key K) {   // Função de dispersão para tipos primitivos
-    const float A = 0.6180339887;  // Constante irracional. É a constante (sqrt(5) - 1) / 2
+    const double A = 0.6180339887;  // Constante irracional. É a constante (sqrt(5) - 1) / 2
     int result = (int)(capacity * (K * A - (int)(K * A))); 
     return result < 0 ? result + capacity : result;
 }
