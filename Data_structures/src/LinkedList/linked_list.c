@@ -1,14 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "c_string.h"
 #include "linked_list.h"
 
-static int number_comparation(tipo_linked_list a, tipo_linked_list b) {   // Comparação entre dois numeros a e b
+static int number_comparation(tipo_linked_list a, tipo_linked_list b) {
+    #if defined(TIPO_LINKED_LIST_FLOAT)
+        if (fabsf(a - b) < 1e-6f) return 0;
+    #elif defined(TIPO_LINKED_LIST_DOUBLE) || defined(TIPO_LINKED_LIST_DOUBLE_G)
+        if (fabs(a - b) < 1e-9) return 0;
+    #endif
+    
     if (a < b) return -1;
     else if (a > b) return 1;
     else return 0;
-
 }
 
 LinkedList linked_list_new() {     // Inicializador de LinkedList
