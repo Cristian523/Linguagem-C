@@ -333,13 +333,16 @@ static void free_list(No_hash ** L) {    // Libera a memória da lista encadeada
 /* Funções de lista encadeada usando apenas apontadores de No_hash */
 
 /* Outras funções auxiliares */
-static int number_comparation(tipo_key A, tipo_key B) {
-    if (A < B)
-        return -1;
-    else if (A > B)
-        return 1;
-    else
-        return 0;
+static int number_comparation(tipo_key a, tipo_key b) {
+    #if defined(TIPO_KEY_FLOAT)
+        if (fabsf(a - b) < 1e-6f) return 0;
+    #elif defined(TIPO_KEY_DOUBLE) || defined(TIPO_KEY_DOUBLE_G)
+        if (fabs(a - b) < 1e-9) return 0;
+    #endif
+    
+    if (a < b) return -1;
+    else if (a > b) return 1;
+    else return 0;
 }
 
 static bool is_primo(int n) {    // Verifica se n é um número primo usando a ideia de n pode ser primo até um i <= √n
