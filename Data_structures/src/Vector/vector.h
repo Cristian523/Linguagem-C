@@ -12,7 +12,7 @@
 
 #define TIPO_VECTOR_INT
 // #define TIPO_VECTOR_LONG
-// #define tTIPO_VECTOR_LONG_LONG
+// #define TIPO_VECTOR_LONG_LONG
 // #define TIPO_VECTOR_FLOAT
 // #define TIPO_VECTOR_DOUBLE
 // #define TIPO_VECTOR_DOUBLE_G
