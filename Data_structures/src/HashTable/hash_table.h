@@ -13,12 +13,12 @@
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_key primitivo quer escolher !!!!!!!!!!!!!!!!!
 
-#define TIPO_KEY_INT
+// #define TIPO_KEY_INT
 // #define TIPO_KEY_LONG
 // #define TIPO_KEY_LONG_LONG
 // #define TIPO_KEY_FLOAT
 // #define TIPO_KEY_DOUBLE
-// #define TIPO_KEY_DOUBLE_G
+#define TIPO_KEY_DOUBLE_G
 // #define TIPO_KEY_CHAR
 
 #if defined(TIPO_KEY_INT)
@@ -62,12 +62,12 @@
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_value primitivo quer escolher !!!!!!!!!!!!!!!!!
 
-#define TIPO_VALUE_INT
+// #define TIPO_VALUE_INT
 // #define TIPO_VALUE_LONG
 // #define TIPO_VALUE_LONG_LONG
 // #define TIPO_VALUE_FLOAT
 // #define TIPO_VALUE_DOUBLE
-// #define TIPO_VALUE_DOUBLE_G
+#define TIPO_VALUE_DOUBLE_G
 // #define TIPO_VALUE_CHAR
 
 #if defined(TIPO_VALUE_INT)
