@@ -10,12 +10,12 @@
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_vector primitivo quer escolher !!!!!!!!!!!!!!!!!
 
-#define TIPO_VECTOR_INT
+// #define TIPO_VECTOR_INT
 // #define TIPO_VECTOR_LONG
 // #define TIPO_VECTOR_LONG_LONG
 // #define TIPO_VECTOR_FLOAT
 // #define TIPO_VECTOR_DOUBLE
-// #define TIPO_VECTOR_DOUBLE_G
+#define TIPO_VECTOR_DOUBLE_G
 // #define TIPO_VECTOR_CHAR
 
 
