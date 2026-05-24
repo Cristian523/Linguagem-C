@@ -9,12 +9,12 @@
 
 //!!!!!!!!!!!!!!! Mude aqui qual tipo_linked_list primitivo quer escolher !!!!!!!!!!!!!!!!!
 
-#define TIPO_LINKED_LIST_INT
+// #define TIPO_LINKED_LIST_INT
 // #define TIPO_LINKED_LIST_LONG
 // #define TIPO_LINKED_LIST_LONG_LONG
 // #define TIPO_LINKED_LIST_FLOAT
 // #define TIPO_LINKED_LIST_DOUBLE
-// #define TIPO_LINKED_LIST_DOUBLE_G
+#define TIPO_LINKED_LIST_DOUBLE_G
 // #define TIPO_LINKED_LIST_CHAR
 
 
