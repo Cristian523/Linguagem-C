@@ -36,12 +36,12 @@
 #elif defined(TIPO_AVL_TREE_FLOAT)
 
     typedef float tipo_avl_tree;
-    #define TO_STRING_AVL_TREE(x) string_from_float((x), PRECISION_TREE)
+    #define TO_STRING_AVL_TREE(x) string_from_float((x), PRECISION_AVL_TREE)
 
 #elif defined(TIPO_AVL_TREE_DOUBLE)
 
     typedef double tipo_avl_tree;
-    #define TO_STRING_AVL_TREE(x) string_from_double((x), PRECISION_TREE)
+    #define TO_STRING_AVL_TREE(x) string_from_double((x), PRECISION_AVL_TREE)
 
 #elif defined(TIPO_AVL_TREE_DOUBLE_G)
 
