@@ -54,7 +54,7 @@
     #define TO_STRING_AVL_TREE(x) string_from_char((x))
 
 #else
-      #error "Defina UM tipo_avl_tree válido em tree.h"
+      #error "Defina UM tipo_avl_tree válido em avl_tree.h"
 
 #endif
 /* MUDE O TIPO_AVL_TREE E A PRECISAO AQUI. NO CASO DO ÚLTIMO, A PRECISAO SERÁ USADA EM FLOAT E DOUBLE APENAS */
