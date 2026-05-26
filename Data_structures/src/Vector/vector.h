@@ -119,6 +119,9 @@ bool vector_remove(Vector*, tipo_vector);
 int vector_length(const Vector*);               
 // @ Retorna o número de elementos de Vector. Se Vector for nulo, será retornado 0.
 
+int vector_size(const Vector*);
+// @ Mesma ideia da função anterior.
+
 int vector_count(const Vector*, tipo_vector);          
 // @ Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector. Se Vector ou o campo vet for nulo, será retornado 0.
 

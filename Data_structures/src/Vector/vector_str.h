@@ -85,6 +85,9 @@ bool vector_str_remove_cstr(Vector_str*, const char*);
 int vector_str_length(const Vector_str*);               
 // @ Retorna o número de elementos de Vector_str. Se Vector_str for nulo, será retornado 0.
 
+int vector_str_size(const Vector_str*);
+// @ Mesma ideia da função anterior.
+
 int vector_str_count(const Vector_str*, const String);          
 // @ Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector_str. Se Vector_str ou o campo vet for nulo, será retornado 0.
 

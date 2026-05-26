@@ -300,6 +300,11 @@ int vector_str_length(const Vector_str* array) {          // Retorna o número d
     return array->length;
 }
 
+int vector_str_size(const Vector_str* array) {     // Mesma ideia da função anterior 
+    if (array == NULL) return 0;
+    return array->length;
+}
+
 int vector_str_count(const Vector_str* array, const String x) {    // Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector_str
     if (array == NULL || array->vet == NULL)
         return 0;

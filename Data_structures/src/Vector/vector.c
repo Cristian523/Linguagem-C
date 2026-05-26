@@ -216,6 +216,11 @@ int vector_length(const Vector* array) {          // Retorna o número de elemen
     return array->length;
 }
 
+int vector_size(const Vector* array) {
+    if (array == NULL) return 0;
+    return array->length;
+}
+
 int vector_count(const Vector* array, tipo_vector x) {    // Retorna a quantidade de ocorrências que o elemento do segundo parâmetro aparece em Vector
     if (array == NULL || array->vet == NULL)
         return 0;
