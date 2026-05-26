@@ -57,6 +57,11 @@ int string_length(const String* cadeia) {        // Retorna o tamanho da string 
 	return cadeia->length;
 }
 
+int string_size(const String* cadeia) {   // Mesma ideia da função anterior
+    if (cadeia == NULL) return 0;
+    return cadeia->length;
+}
+
 bool string_append(String* cadeia, char x) {     // Adiciona um caractere no fim da string. Se necessário, esta função vai tentar aumentar o tamanho da string.
 	if (cadeia == NULL) return false;
 	

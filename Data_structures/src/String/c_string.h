@@ -25,6 +25,9 @@ String string_new();
 int string_length(const String*);                        
 // @ Retorna o tamanho da string sem o usuário se preocupar com os campos
 
+int string_size(const String*);
+// @ Mesma ideia da função anterior.
+
 bool string_append(String*, char);                       
 // @ Adiciona um caractere no fim da string. Se necessário, esta função vai tentar aumentar o tamanho da string (em caso de problemas de memória ou o ponteiro do parâmetro for nulo, será retornado false).
 
