@@ -17,6 +17,11 @@ int linked_list_str_length(const LinkedList_str* list) {    // Retorna o número
     else return list->length;
 }
 
+int linked_list_str_size(const LinkedList_str* list) {    // Mesma ideia da função anterior
+    if (list == NULL) return 0;
+    else return list->length;
+}
+
 bool linked_list_str_is_empty(const LinkedList_str* list) {  // Verifica se é uma LinkedList_str vazia
     if (list == NULL || list->length == 0 || list->inicio == NULL) return true;
     else return false;

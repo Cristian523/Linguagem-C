@@ -30,6 +30,11 @@ int linked_list_length(const LinkedList* list) {    // Retorna o número de elem
     else return list->length;
 }
 
+int linked_list_size(const LinkedList* list) {    // Mesma ideia da função anterior
+    if (list == NULL) return 0;
+    else return list->length;
+}
+
 bool linked_list_is_empty(const LinkedList* list) {  // Verifica se é uma LinkedList vazia
     if (list == NULL || list->length == 0 || list->inicio == NULL) return true;
     else return false;

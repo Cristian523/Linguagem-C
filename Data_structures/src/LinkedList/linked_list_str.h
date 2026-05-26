@@ -24,6 +24,9 @@ LinkedList_str linked_list_str_new();
 int linked_list_str_length(const LinkedList_str*); 
 // @ Retorna o número de elementos 
 
+int linked_list_str_size(const LinkedList_str*);
+// @ Mesma ideia da função anterior
+
 bool linked_list_str_is_empty(const LinkedList_str*); 
 // @ Verifica se é uma LinkedList_str vazia. Se o parâmetro for nulo, o campo length for 0 ou o campo inicio for nulo, será retornado true.
 

@@ -80,6 +80,9 @@ LinkedList linked_list_new();
 int linked_list_length(const LinkedList*); 
 // @ Retorna o número de elementos 
 
+int linked_list_size(const LinkedList*);
+// @ Mesma ideia da função anterior
+
 bool linked_list_is_empty(const LinkedList*); 
 // @ Verifica se é uma LinkedList vazia. Se o parâmetro for nulo, o campo length for 0 ou o campo inicio for nulo, será retornado true.
 
