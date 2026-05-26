@@ -13,5 +13,9 @@
 #include "hash_table.h"
 #include "hash_table_sls.h"
 #include "hash_table_sn.h"
+#include "tree.h"
+#include "avl_tree.h"
+#include "priority_queue.h"
+#include "priority_queue_str.h"
 
 #endif
