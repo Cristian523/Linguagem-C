@@ -62,6 +62,7 @@
 
 typedef struct No_avl_tree {
     tipo_avl_tree E;
+    int Q;
     struct No_avl_tree* Esq;
     struct No_avl_tree* Dir;
     int altura;
@@ -84,7 +85,7 @@ int avl_tree_size(const AvlTree*);
 // @ Retorna o número de elementos da árvore. Se o parâmetro for nulo, será retornado 0.
 
 bool avl_tree_insert(AvlTree*, tipo_avl_tree);
-// @ Insere o elemento do segundo parâmetro se ele não existir na árvore. Se o primeiro parâmetro for nulo ou o elemento já existir na árvore, será retornado false.
+// @ Insere o elemento do segundo parâmetro. Se o primeiro parâmetro for nulo ou o elemento já existir na árvore, será retornado false.
 
 bool avl_tree_search(const AvlTree*, tipo_avl_tree);
 // @ Busca se o elemento do segundo parâmetro está na árvore. Se o primeiro parâmetro for nulo, a árvore for vazia ou não encontrar o elemento, será retornado false.

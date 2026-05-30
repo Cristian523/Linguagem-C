@@ -62,6 +62,7 @@
 
 typedef struct No_tree {
     tipo_tree E;
+    int Q;
     struct No_tree* Esq;
     struct No_tree* Dir;
 } No_tree;
@@ -83,7 +84,7 @@ int tree_size(const Tree*);
 // @ Retorna o número de elementos da árvore. Se o parâmetro for nulo, será retornado 0.
 
 bool tree_insert(Tree*, tipo_tree);
-// @ Insere o elemento do segundo parâmetro se ele não existir na árvore. Se o primeiro parâmetro for nulo ou o elemento já existir na árvore, será retornado false.
+// @ Insere o elemento do segundo parâmetro. Se o primeiro parâmetro for nulo, será retornado false.
 
 bool tree_search(const Tree*, tipo_tree);
 // @ Busca se o elemento do segundo parâmetro está na árvore. Se o primeiro parâmetro for nulo, a árvore for vazia ou não encontrar o elemento, será retornado false.

@@ -18,7 +18,7 @@ static void RotacaoRL(No_avl_tree**);    // Rotação direita-esquerda
 /* Funções auxiliares para Inserção e Remoção de nó's */
 
 /* Inserção e Remoção */
-static bool Insere_AVL(No_avl_tree**, tipo_avl_tree);    // Insere o elemento na árvore se não existente
+static bool Insere_AVL(No_avl_tree**, tipo_avl_tree);    // Insere o elemento na árvore
 static bool Remove_AVL(No_avl_tree**, tipo_avl_tree);    // Remove o elemento da árvore se existente
 /* Inserção e Remoção */
 
@@ -120,7 +120,7 @@ String avl_tree_to_string(const AvlTree* arvore) {   // Retorna uma representaç
 String avl_tree_to_string_detailed(const AvlTree* arvore) {  // Retorna uma representação detalhada da árvore como String.
     if (avl_tree_is_empty(arvore))
         return string_new_with_cstr("NULL");
-    String cadeia = string_new_with_size(36 * arvore->size);   // Um tamanho bem grande, mas necessário
+    String cadeia = string_new_with_size(47 * arvore->size);   // Um tamanho bem grande, mas necessário
     if (!string_is_valid(&cadeia))
         return string_new_with_cstr("NULL");
     to_string_all_detailed_no_tree(arvore->T, &cadeia);
@@ -255,13 +255,14 @@ static void RotacaoRL(No_avl_tree** raiz) {  // Rotação direita-esquerda
 
 
 /* Inserção e Remoção */
-static bool Insere_AVL(No_avl_tree** raiz, tipo_avl_tree valor) {  // Insere o elemento na árvore se não existente
+static bool Insere_AVL(No_avl_tree** raiz, tipo_avl_tree valor) {  // Insere o elemento na árvore
         bool res;
 	if (*raiz == NULL) {
 		No_avl_tree * novo = (No_avl_tree*) malloc(sizeof(No_avl_tree));
 		if (novo == NULL)
 			return false;
 		novo->E = valor;
+		novo->Q = 1;
 		novo->altura = 0;
 		novo->Esq = NULL; novo->Dir = NULL;
 		*raiz = novo;
@@ -294,7 +295,8 @@ static bool Insere_AVL(No_avl_tree** raiz, tipo_avl_tree valor) {  // Insere o e
 	
 		}
 		else {
-			return false;   // não permito adicionar um elemento que já exista na árvore
+			(*raiz)->Q++;
+			return true;   
 		}
 	}
 	
@@ -338,6 +340,11 @@ static bool Remove_AVL(No_avl_tree** raiz, tipo_avl_tree valor) {    // Remove o
 	}
 	
 	if (number_comparation(valor, (*raiz)->E) == 0) {
+		if ((*raiz)->Q > 1) {
+		    (*raiz)->Q--;
+		    return true;
+		}
+		
 		if (((*raiz)->Esq == NULL || (*raiz)->Dir == NULL)) {    // Verificando se um dos filhos é NULL pelo menos.
 			No_avl_tree * AntigoNO = *raiz;
 			if ((*raiz)->Esq != NULL)
@@ -380,23 +387,32 @@ static void free_all_no_tree(No_avl_tree** T) {  // Libera a memória de todos o
 static void to_string_all_no_tree(No_avl_tree* T, String* cadeia) {  // Retorna no segundo parâmetro uma representação dos nós como String de forma básica
     if (T != NULL) {
         to_string_all_no_tree(T->Esq, cadeia);
-        string_append(cadeia, '[');
+        for (int i = 1; i <= T->Q; i++) { 
+            string_append(cadeia, '[');
         
-        String aux = TO_STRING_AVL_TREE(T->E);
-        string_concat(cadeia, &aux);   // Assumo que sempre funcionará
-        string_free(&aux);
+            String aux = TO_STRING_AVL_TREE(T->E);
+            string_concat(cadeia, &aux);   // Assumo que sempre funcionará
+            string_free(&aux);
         
-        string_concat_cstr(cadeia, "] ");
+            string_concat_cstr(cadeia, "] ");
+        }
         to_string_all_no_tree(T->Dir, cadeia);
     }
 }
 
 static void to_string_all_detailed_no_tree(No_avl_tree* T, String* cadeia) {  // Retorna no segundo parâmetro uma representação dos nós como String de forma detalhada
     if (T != NULL) {
-        String aux_raiz = TO_STRING_AVL_TREE(T->E);
-        String aux_esq = T->Esq != NULL ? TO_STRING_AVL_TREE(T->Esq->E) : string_new_with_cstr("NULL");
-        String aux_dir = T->Dir != NULL ? TO_STRING_AVL_TREE(T->Dir->E) : string_new_with_cstr("NULL");
         
+        String aux_raiz;
+        String aux_esq;
+        String aux_dir;
+        String aux_q;
+            
+        aux_raiz = TO_STRING_AVL_TREE(T->E);
+        aux_esq = T->Esq != NULL ? TO_STRING_AVL_TREE(T->Esq->E) : string_new_with_cstr("NULL");
+        aux_dir = T->Dir != NULL ? TO_STRING_AVL_TREE(T->Dir->E) : string_new_with_cstr("NULL");
+        aux_q = string_from_int(T->Q);
+            
         /* Assumo que sempre funcionará */
         string_concat_cstr(cadeia, "No ");
         string_concat(cadeia, &aux_raiz);
@@ -404,12 +420,16 @@ static void to_string_all_detailed_no_tree(No_avl_tree* T, String* cadeia) {  //
         string_concat(cadeia, &aux_esq);
         string_concat_cstr(cadeia, "  ;  Dir: ");
         string_concat(cadeia, &aux_dir);
+        string_concat_cstr(cadeia, "  ;  Q: ");
+        string_concat(cadeia, &aux_q);
         string_concat_cstr(cadeia, "\n\n");
         /* Assumo que sempre funcionará */
-        
+            
         string_free(&aux_raiz);
         string_free(&aux_esq);
         string_free(&aux_dir);
+        string_free(&aux_q);
+        
         
         to_string_all_detailed_no_tree(T->Esq, cadeia);
         to_string_all_detailed_no_tree(T->Dir, cadeia);
@@ -419,8 +439,10 @@ static void to_string_all_detailed_no_tree(No_avl_tree* T, String* cadeia) {  //
 static void cvet_from_all_no_tree(No_avl_tree* T, tipo_avl_tree* array, int* i) {  // Retorna um vetor da linguagem C no segundo parâmetro com todos os elementos da árvore  
     if (T != NULL) {
         cvet_from_all_no_tree(T->Esq, array, i);   
-        array[*i] = T->E;  
-        (*i)++;
+        for (int j = 1; j <= T->Q; j++) {    
+            array[*i] = T->E;  
+            (*i)++;
+        }
         cvet_from_all_no_tree(T->Dir, array, i);
     }
 }
