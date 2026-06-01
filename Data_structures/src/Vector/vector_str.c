@@ -355,8 +355,15 @@ bool vector_str_copy_cvet(Vector_str* array, const String* vetor, int n) {     /
     if (vetor_aux == NULL)
         return false;
 
-    for (int i = 0; i < n; i++)
-        vetor_aux[i] = vetor[i];
+    for (int i = 0; i < n; i++) {
+        if (!string_copy(&vetor_aux[i], &vetor[i])) {
+            for (int j = 0; j <= i; i++)
+                string_free(&vetor_aux[i]);
+            free(&vetor_aux);
+            return false;
+        }
+            
+    }
     
     if (array->vet != NULL)  {     // Se tiver já algum vetor, libera a memória para atribuir ao novo vetor alocado
         for (int i = 0; i < array->length; i++)
