@@ -38,6 +38,12 @@ HashTable_sls hash_table_sls_new_with_size(int);
    OBS: Se esse parâmetro for menor ou igual a 12, essa função vai assumir capacidade sendo HASH_TABLE_SLS_MIN_CAPACITY.
 */
 
+int hash_table_sls_value_size(const HashTable_sls*, const String);
+// @ Retorna o número de elementos da lista encadeada de valores da chave passada no segundo parâmetro. Se a tabela for vazia ou não encontrar essa chave, será retornado -1. 
+
+int hash_table_sls_value_size_cstr(const HashTable_sls*, const char*);
+// @ Mesma ideia da função anterior, mas o segundo parâmetro é um vetor de caracteres
+
 bool hash_table_sls_is_empty(const HashTable_sls*);
 // @ Verifica se a tabela está vazia. Se o parâmetro for nulo ou o campo size for 0, será retornado true, caso o contrário, será retornado false.
 

@@ -123,6 +123,20 @@ HashTable_sls hash_table_sls_new_with_size(int n) {  // Cria uma HashTable_sls a
     return hash_table_sls_new_with_capacity(capacidade);
 }
 
+int hash_table_sls_value_size(const HashTable_sls* tabela, const String chave) {  // Retorna o número de elementos da lista encadeada de valores da chave passada no segundo parâmetro.
+    return hash_table_sls_value_size_cstr(tabela, string_cstr(&chave));
+}
+
+int hash_table_sls_value_size_cstr(const HashTable_sls* tabela, const char* chave) {  // Retorna o número de elementos da lista encadeada de valores da chave passada no segundo parâmetro.
+    if (hash_table_sls_is_empty(tabela))
+        return -1;
+    int posicao = dispersal_cstr(tabela->capacity, chave);
+    No_hash_sls* p = search_list_cstr(tabela->vet[posicao], chave);
+    if (p == NULL)
+        return -1;
+    return linked_list_str_length(&p->value);
+}
+
 bool hash_table_sls_is_empty(const HashTable_sls* tabela) {    // Verifica se a tabela está vazia
     if (tabela == NULL || tabela->vet == NULL || tabela->size == 0)
         return true;
