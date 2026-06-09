@@ -161,13 +161,13 @@ bool hash_table_sls_put_cstr_cstr(HashTable_sls* tabela, const char* chave, cons
     int posicao = dispersal_cstr(tabela->capacity, chave);
     No_hash_sls* p = search_list_cstr(tabela->vet[posicao], chave);
     if (p != NULL) {   // Verificando se a chave já existe
-        linked_list_str_insert_ordered_cstr(&p->value, valor);  // supondo que sempre funcionará
+        linked_list_str_insert_end_cstr(&p->value, valor);  // supondo que sempre funcionará
         return true;
     }
     if ((float) tabela->size / tabela->capacity > LOAD_FACTOR_SLS) {   // Aumentando o tamanho da tabela se necessário
         if (!increase_hash_table(tabela))
             return false;
-    }
+    } 
     
     posicao = dispersal_cstr(tabela->capacity, chave);
     // Adicionando a chave e um único valor caso não exista

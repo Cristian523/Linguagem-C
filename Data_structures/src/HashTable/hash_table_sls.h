@@ -59,8 +59,8 @@ bool hash_table_sls_put(HashTable_sls*, const String, const String);
 */
 
 bool hash_table_sls_put_cstr_cstr(HashTable_sls*, const char*, const char*);
-/* @ Mesma ideia da função anterior, mas os segundo e terceiro parâmetros serão transformados em String primeiro. Se essa transformação falhar, será retornado false.
-*/
+// @ Mesma ideia da função anterior, mas os segundo e terceiro parâmetros serão transformados em String primeiro. Se essa transformação falhar, será retornado false.
+
 
 bool hash_table_sls_put_key_value(HashTable_sls*, const String, const LinkedList_str);
 /* @ Adiciona o par chave-valor a tabela. Se a chave já existir, apenas o valor será alterado na chave já existente (será substituído).
@@ -68,8 +68,6 @@ bool hash_table_sls_put_key_value(HashTable_sls*, const String, const LinkedList
    1) Se o primeiro parâmetro for nulo.
    2) Se a realocação da tabela falhar, seja por não conseguir alocar o novo array de No_hash_sls* ou na impossibilidade de trasferir todos os atuais elementos do array antigo para o atual
    3) Se a inserção do par chave-valor falhar após o passo 2)
-   
-   OBS: Recomendo que a LinkedList_str esteja ordenada, para que, caso faça novas inserções com hash_table_sls_put() ou hash_table_put_cstr_cstr() com a mesma chave, será inserido, na LinkedList_str de valor, o valor de forma ordenada.
 */
 
 bool hash_table_sls_put_key_value_cstr_cvet_cstr(HashTable_sls*, const char*, const char**, int);
