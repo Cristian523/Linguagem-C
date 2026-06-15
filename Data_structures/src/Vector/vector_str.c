@@ -357,9 +357,9 @@ bool vector_str_copy_cvet(Vector_str* array, const String* vetor, int n) {     /
 
     for (int i = 0; i < n; i++) {
         if (!string_copy(&vetor_aux[i], &vetor[i])) {
-            for (int j = 0; j <= i; i++)
-                string_free(&vetor_aux[i]);
-            free(&vetor_aux);
+            for (int j = 0; j <= i; j++)
+                string_free(&vetor_aux[j]);
+            free(vetor_aux);
             return false;
         }
             
