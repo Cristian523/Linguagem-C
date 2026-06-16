@@ -1,4 +1,4 @@
-OBJETOS = bin/teste.o bin/c_string.o bin/vector.o bin/vector_str.o bin/linked_list.o bin/linked_list_str.o \
+OBJETOS = bin/main.o bin/c_string.o bin/vector.o bin/vector_str.o bin/linked_list.o bin/linked_list_str.o \
 	  bin/stack.o bin/stack_str.o bin/queue.o bin/queue_str.o bin/hash_table.o bin/hash_table_sls.o \
 	  bin/hash_table_sn.o bin/tree.o bin/avl_tree.o bin/priority_queue.o bin/priority_queue_str.o
 	  
@@ -17,9 +17,9 @@ all: 	$(OBJETOS)
 	@ #valgrind --leak-check=full --track-origins=yes ./executavel
 	
 	
-bin/teste.o: teste.c $(ARQUIVOS_H)
+bin/main.o: main.c $(ARQUIVOS_H)
 	@mkdir -p bin
-	gcc $(INCLUDES) -c teste.c -o bin/teste.o
+	gcc $(INCLUDES) -c main.c -o bin/main.o
 	
 bin/c_string.o: src/String/c_string.c src/String/c_string.h
 	@mkdir -p bin
