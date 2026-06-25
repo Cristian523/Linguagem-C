@@ -9,7 +9,7 @@ typedef struct Vector_str {
     String* vet;
     int length;
     int capacity;
-
+    bool is_sorted;
 } Vector_str;
 
 typedef enum {
@@ -37,6 +37,14 @@ Vector_str vector_str_new();
 bool vector_str_is_empty(const Vector_str*);            
 // @ Verifica se o Vector_str é vazio. Se o Vector_str for nulo, o campo length for 0 ou o campo vet for nulo, será retornado true.
 
+bool vector_str_is_ordered(const Vector_str*);
+// @ Verifica, em tempo constante com o campo interno is_sorted, se o vetor é ordenado. Se o parâmetro for nulo, essa função retornará true por eu considerar uma referência nula como vetor vazio
+
+bool vector_str_check_ordered(Vector_str*);
+/* @ Percorre todos os elementos do vetor a fim de verificar se o vetor é ordenado. Se o parâmetro for nulo, essa função retornará true por eu considerar uma referência nula como vetor vazio. 
+   OBS: Além de retornar o resultado da operação, essa função também ajustará o campo interno is_sorted para receber o mesmo valor de retorno dado caso seja passado um parâmetro com uma referẽncia diferente de nulo.
+*/
+
 bool vector_str_append(Vector_str*, const String);              
 // @ Adiciona ao final de Vector_str o elemento do segundo parâmetro. Se o Vector_str ou o campo vet for nulo ou tiver problema de realocação de memória, será retornado false
 
@@ -50,7 +58,7 @@ bool vector_str_insert_cstr(Vector_str*, int, const char*);
 // @ Chama a função anterior insert criando um novo tipo String a partir desse vetor de caracteres do terceiro parâmetro. Em problemas de criar a String, será retornado false, além dos problemas da função usada.
 
 bool vector_str_insert_ordered(Vector_str*, const String);      
-// @ Adiciona o elemento do segundo parâmetro em Vector_str de forma ordenada. Se Vector_str ou o campo vet for nulo ou tiver problemas de realocação de memória, será retornado false.
+// @ Adiciona o elemento do segundo parâmetro em Vector_str de forma ordenada. Se Vector_str ou o campo vet for nulo, o vetor não for ordenado ou tiver problemas de realocação de memória, será retornado false.
 
 bool vector_str_insert_ordered_cstr(Vector_str*, const char*);  
 // @ Chama a função anterior insert_ordered criando um novo tipo String a partir desse vetor de caracteres do terceiro parâmetro. Em problemas de criar a String, será retornado false, além dos problemas da função usada.
@@ -62,16 +70,18 @@ int vector_str_search(const Vector_str*, const String);
 // @ Procura a primeira ocorrência do elemento indicado no segundo parâmetro em Vector_str. Se Vector_str ou o campo vet for nulo ou não encontrar o elemento indicado, será retornado -1, mas se encontrar o elemento, será retornado a sua respectiva posição.
 
 int vector_str_search_cstr(const Vector_str*, const char*);  
-// @ Usa a função anterior search com o segundo parâmetro se tornando uma String. Se falhar nessa transformação, será retornado -1.
+// @ Usa a função anterior search com o segundo parâmetro se tornando uma String. Se falhar nessa transformação ou em qualquer outro problema da função anterior, será retornado -1.
 
 int vector_str_binary_search(const Vector_str*, const String);  
-// @ Procura a primeira ocorrência do elemento indicado no segundo parâmetro em um Vector_str com o campo vet ordenado. Se Vector_str ou o campo vet for nulo ou não encontrar o elemento indicado, será retornado -1, mas se encontrar o elemento, será retornado a sua respectiva posição.
+// @ Procura a primeira ocorrência do elemento indicado no segundo parâmetro em um Vector_str com o campo vet ordenado. Se Vector_str ou o campo vet for nulo, o vetor não for ordenado ou não encontrar o elemento indicado, será retornado -1, mas se encontrar o elemento, será retornado a sua respectiva posição.
 
 int vector_str_binary_search_cstr(const Vector_str*, const char*);  
-// @ Usa a função anterior binary_search com o segundo parâmetro se tornando uma String. Se falhar nessa transformação, será retornado -1.
+// @ Usa a função anterior binary_search com o segundo parâmetro se tornando uma String. Se falhar nessa transformação ou em qualquer outro problema da função anterior, será retornado -1.
 
 bool vector_str_pop(Vector_str*, String*);                
-// @ Remove o elemento de Vector_str da última posição e retorna este elemento no segundo parâmetro. Se Vector_str ou o campo vet for nulo, será retornado false na função e o segundo parâmetro não será modificado.
+/* @ Remove o elemento de Vector_str da última posição e retorna este elemento no segundo parâmetro. Se Vector_str ou o campo vet for nulo, será retornado false na função e o segundo parâmetro não será modificado.
+   OBS: Essa função não alterará o valor do campo is_sorted, mesmo que com a remoção do elemento corrente torne o vetor ordenado, já que não dá para fazer essa verificação em tempo constante.
+*/
 
 bool vector_str_pop_at(Vector_str*, int, String*);        
 // @ Remove o elemento de Vector_str da posição indicada no segundo parâmetro e este elemento é retornado no terceiro parâmetro. Se Vector_str ou o campo vet for nulo e a posição de remoção for inválida, será retornado false na função e o terceiro parâmetro não será modificado.
@@ -125,24 +135,13 @@ String* vector_str_to_cvet(const Vector_str*);
 const String* vector_str_cvet(const Vector_str*);        
 // @ Retorna o próprio campo de vet de Vector como constante, mas este campo NÃO deve ter a memória liberada com o free()
 
-
-/* Algoritmos de Ordenação */
-void BubbleSort_str(Vector_str*, int);
-void BubbleSort_Recursivo_str(Vector_str*, int);
-void SelectionSort_str(Vector_str*, int);
-void SelectionSort_Recursivo_str(Vector_str*, int);
-void InsertionSort_str(Vector_str*, int);
-bool MergeSort_str(Vector_str*, int, int);
-void QuickSort_str(Vector_str*, int, int);
-/* Algoritmos de Ordenação */
-
 void vector_str_sort(Vector_str*);                     
 // @ Se o campo length for até de tamanho 16, será chamado o InsertionSort_str e se for maior que isso, será chamado o QuickSort_str.
 
 bool vector_str_choose_sort(Vector_str*, SortType_str);    
-/* @ Escolha a sua ordenação de preferência sem precisar se preocupar com os parâmetros dos algoritmos de ordenação. Recomendo usar esta função em comparação ao chamar cada uma delas manualmente. Se passar uma ordenação inválida ou Vector_str ou o campo vet for nulo, o Vector_str (se existir) não será ordenado e será retornará false. 
-OBS1: As opções são as que estão no enum bem mais acima, mas deixarei aqui também explícito quais são ao passar como segundo argumento da função: BUBBLE_STR, BUBBLE_REC_STR, SELECTION_STR, SELECTION_REC_STR, INSERTION_STR, MERGE_STR e QUICK_STR. 
-OBS2: Esta função serve mais como uma comparação entre os algoritmos de ordenação se tiver curioso ou fizer questão de usar o MergeSort_str por exemplo. Se só quer ordenar, use a função acima vector_str_sort.
+/* @ Escolha a sua ordenação de preferência sem precisar se preocupar com os parâmetros dos algoritmos de ordenação. Se passar uma ordenação inválida ou Vector_str ou o campo vet for nulo, o Vector_str (se existir) não será ordenado e será retornará false. 
+   OBS1: As opções são as que estão no enum bem mais acima, mas deixarei aqui também explícito quais são ao passar como segundo argumento da função: BUBBLE_STR, BUBBLE_REC_STR, SELECTION_STR, SELECTION_REC_STR, INSERTION_STR, MERGE_STR e QUICK_STR. 
+   OBS2: Esta função serve mais como uma comparação entre os algoritmos de ordenação se tiver curioso ou fizer questão de usar o MergeSort_str por exemplo. Se só quer ordenar, use a função acima vector_str_sort().
 */
 
 

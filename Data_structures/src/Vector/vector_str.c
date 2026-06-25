@@ -25,6 +25,7 @@ Vector_str vector_str_new_with_size(int size) {            // Inicializa um Vect
         array.capacity = 0;
       
     array.length = 0;
+    array.is_sorted = true;
     return array;
 }
 
@@ -32,6 +33,7 @@ Vector_str vector_str_new_with_cvet(const String* vetor, int n) {    // Iniciali
     Vector_str array;
     array.vet = NULL;
     array.length = array.capacity = 0;
+    array.is_sorted = true;
     if (vetor != NULL)
         vector_str_copy_cvet(&array, vetor, n);
     return array;
@@ -42,6 +44,7 @@ Vector_str vector_str_new_with_cvet_cstr(const char** vetor, int n) {  // Inicia
     Vector_str array;
     array.vet = NULL;
     array.length = array.capacity = 0;
+    array.is_sorted = true;
     if (vetor != NULL)
         vector_str_copy_cvet_cstr(&array, vetor, n);
     return array;
@@ -57,6 +60,27 @@ bool vector_str_is_empty(const Vector_str* array) {
     else return false;
 }
 
+bool vector_str_is_ordered(const Vector_str* array) {  // Verifica, em tempo constante com o campo interno is_sorted, se o vetor é ordenado
+    if (array == NULL || array->vet == NULL)
+        return true;
+    return array->is_sorted;
+}
+
+bool vector_str_check_ordered(Vector_str* array) {  // Percorre todos os elementos do vetor a fim de verificar se o vetor é ordenado.
+    if (array == NULL || array->vet == NULL)
+        return true;
+    
+    bool eh_ordenado = true;
+    for (int i = 1; i < array->length; i++) {
+        if (string_compare(&array->vet[i - 1], &array->vet[i]) > 0) {
+            eh_ordenado = false;
+            break;
+        }
+    }
+    array->is_sorted = eh_ordenado;
+    return eh_ordenado;
+}
+
 bool vector_str_append(Vector_str* array, const String x) {               // Adiciona ao final de array o elemento do segundo parâmetro.
     if (array == NULL || array->vet == NULL)
         return false;
@@ -67,10 +91,13 @@ bool vector_str_append(Vector_str* array, const String x) {               // Adi
         if (!increase_size_vector_str(&(array->vet), N))
             return false;
     }
-
+    
+    array->vet[n] = string_new_empty();
     string_copy(&array->vet[n], &x);
     array->length = ++n;
     array->capacity = N;
+    if (array->is_sorted && array->length > 1 && string_compare(&array->vet[array->length - 2], &array->vet[array->length - 1]) > 0)
+        array->is_sorted = false;
     return true;
 }
 
@@ -108,11 +135,16 @@ bool vector_str_insert(Vector_str* array, int posicao, const String x) {  // Adi
         array->vet[i+1] = array->vet[i];
     }
     
-    array->vet[posicao] = string_new_empty();  // Estava tendo problema gravissimo com a linha de baixo, por isso essa atribuição aqui foi necessária. Melhor isto do que varios string_copy's no loop acima.
-    string_copy(&array->vet[posicao], &x);    // Problema gravíssimo
+    array->vet[posicao] = string_new_empty();  
+    string_copy(&array->vet[posicao], &x);    
     
     array->length = ++n;
     array->capacity = N;
+    if (array->is_sorted && array->length > 1) {
+        bool ok_anterior = (posicao == 0) || string_compare(&array->vet[posicao - 1], &array->vet[posicao]) <= 0;
+        bool ok_seguinte = (posicao == array->length - 1) || string_compare(&array->vet[posicao], &array->vet[posicao + 1]) <= 0;
+        array->is_sorted = ok_anterior && ok_seguinte;
+    }
     return true;
     
 }
@@ -132,7 +164,7 @@ bool vector_str_insert_cstr(Vector_str* array, int posicao, const char* caracter
 }
 
 bool vector_str_insert_ordered(Vector_str* array, const String x) {   // Adiciona o elemento do segundo parâmetro em Vector_str de forma ordenada
-    if (array == NULL || array->vet == NULL)
+    if (array == NULL || array->vet == NULL || !array->is_sorted)
         return false;
     int n = array->length;
     int N = array->capacity;
@@ -149,7 +181,7 @@ bool vector_str_insert_ordered(Vector_str* array, const String x) {   // Adicion
     for (int i = n - 1; i >= posicao; i--) 
         array->vet[i + 1] = array->vet[i];
   
-    array->vet[posicao] = string_new_empty();  // Estava tendo problema gravissimo com a linha de baixo, por isso essa atribuição aqui foi necessária. Melhor isto do que varios string_copy's no loop acima.
+    array->vet[posicao] = string_new_empty();  
     string_copy(&array->vet[posicao], &x);     
     
     array->length = ++n;
@@ -202,9 +234,9 @@ int vector_str_search_cstr(const Vector_str* array, const char* caracteres) {   
     return posicao;
 }
 
-int vector_str_binary_search(const Vector_str* array, const String x) {    // Procura a primeira ocorrência em Vector_str do elemento indicado no segundo parâmetro. Só funciona corretamente se o campo vet estiver ordenado!
+int vector_str_binary_search(const Vector_str* array, const String x) {    // Procura a primeira ocorrência em Vector_str do elemento indicado no segundo parâmetro.
     // Válido apenas se array for ordenado!
-        if (array == NULL || array->vet == NULL || array->length <= 0)
+        if (array == NULL || array->vet == NULL || array->length <= 0 || !array->is_sorted)
             return -1;
         int i = 0, j = array->length - 1;
 	int media;
@@ -255,6 +287,8 @@ bool vector_str_pop_at(Vector_str* array, int posicao, String * retorno) {    //
         
     }
     array->length--;
+    if (!array->is_sorted)
+        vector_str_check_ordered(array);
     return true;
     
 }
@@ -278,6 +312,8 @@ bool vector_str_remove(Vector_str* array, const String x) {             // Remov
         array->vet[i] = array->vet[i + 1];
 
     array->length--;
+    if (!array->is_sorted)
+        vector_str_check_ordered(array);
     return true;
 }
 
@@ -334,6 +370,7 @@ void vector_str_clear(Vector_str* array) {        // Considera todo dado dispon�
         for (int i = 0; i < array->length; i++)
             string_free(&array->vet[i]);
         array->length = 0;
+        array->is_sorted = true;
     }
 }
 
@@ -344,6 +381,7 @@ void vector_str_free(Vector_str* array) {                  // Libera a memória 
         free(array->vet);
         array->vet = NULL;
         array->length = array->capacity = 0;
+        array->is_sorted = true;
     }
 }
 
@@ -354,7 +392,8 @@ bool vector_str_copy_cvet(Vector_str* array, const String* vetor, int n) {     /
     String* vetor_aux = (String*) calloc(n, sizeof(String));      
     if (vetor_aux == NULL)
         return false;
-
+    
+    bool eh_ordenado = true;
     for (int i = 0; i < n; i++) {
         if (!string_copy(&vetor_aux[i], &vetor[i])) {
             for (int j = 0; j <= i; j++)
@@ -362,7 +401,10 @@ bool vector_str_copy_cvet(Vector_str* array, const String* vetor, int n) {     /
             free(vetor_aux);
             return false;
         }
-            
+        
+        if (eh_ordenado && i > 0 && string_compare(&vetor_aux[i - 1], &vetor_aux[i]) > 0) 
+            eh_ordenado = false;
+        
     }
     
     if (array->vet != NULL)  {     // Se tiver já algum vetor, libera a memória para atribuir ao novo vetor alocado
@@ -372,6 +414,7 @@ bool vector_str_copy_cvet(Vector_str* array, const String* vetor, int n) {     /
     }
     array->vet = vetor_aux;
     array->length = array->capacity = n;
+    array->is_sorted = eh_ordenado;
     return true;
 }
 
@@ -382,13 +425,16 @@ bool vector_str_copy_cvet_cstr(Vector_str* array, const char** vetor, int n) {  
     String* vetor_aux = (String*) calloc(n, sizeof(String));      
     if (vetor_aux == NULL)
         return false;
-
+    
+    bool eh_ordenado = true;
     for (int i = 0; i < n; i++) {
         if (vetor[i] != NULL)
             string_copy_cstr(&vetor_aux[i], vetor[i]);
         else 
             string_copy_cstr(&vetor_aux[i], "NULL");
         
+        if (eh_ordenado && i > 0 && string_compare(&vetor_aux[i - 1], &vetor_aux[i]) > 0) 
+            eh_ordenado = false;
     }
     
     if (array->vet != NULL)  {     // Se tiver já algum vetor, libera a memória para atribuir ao novo vetor alocado
@@ -398,6 +444,7 @@ bool vector_str_copy_cvet_cstr(Vector_str* array, const char** vetor, int n) {  
     }
     array->vet = vetor_aux;
     array->length = array->capacity = n;
+    array->is_sorted = eh_ordenado;
     return true;
 }
 
@@ -538,7 +585,7 @@ static void Particionar(String* A, int inicio, int fim, const String pivo, int* 
 	}
 }
 
-void BubbleSort_str(Vector_str* array, int n) {
+static void BubbleSort_str(Vector_str* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -553,7 +600,7 @@ void BubbleSort_str(Vector_str* array, int n) {
 	}
 }
 
-void BubbleSort_Recursivo_str(Vector_str* array, int n) {
+static void BubbleSort_Recursivo_str(Vector_str* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -569,7 +616,7 @@ void BubbleSort_Recursivo_str(Vector_str* array, int n) {
 	}
 }
 
-void SelectionSort_str(Vector_str* array, int n) {
+static void SelectionSort_str(Vector_str* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -586,7 +633,7 @@ void SelectionSort_str(Vector_str* array, int n) {
 
 }
 
-void SelectionSort_Recursivo_str(Vector_str* array, int n) {
+static void SelectionSort_Recursivo_str(Vector_str* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
 
@@ -604,7 +651,7 @@ void SelectionSort_Recursivo_str(Vector_str* array, int n) {
 	}
 }
 
-void InsertionSort_str(Vector_str* array, int n) {
+static void InsertionSort_str(Vector_str* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -621,7 +668,7 @@ void InsertionSort_str(Vector_str* array, int n) {
 }
 
 
-bool MergeSort_str(Vector_str* array, int inicio, int fim) {
+static bool MergeSort_str(Vector_str* array, int inicio, int fim) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
     
@@ -634,7 +681,7 @@ bool MergeSort_str(Vector_str* array, int inicio, int fim) {
     return true;
 }
 
-void QuickSort_str(Vector_str* array, int inicio, int fim) {
+static void QuickSort_str(Vector_str* array, int inicio, int fim) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -660,36 +707,42 @@ void vector_str_sort(Vector_str* array) {
         InsertionSort_str(array, array->length);
     else
         QuickSort_str(array, 0, array->length - 1);
+    array->is_sorted = true;
 }
 
 bool vector_str_choose_sort(Vector_str* array, SortType_str escolha) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
 
+    bool foi_ordenado = true;
     switch(escolha) {
         case BUBBLE_STR:
             BubbleSort_str(array, array->length);
-            return true;
+            break;
         case BUBBLE_REC_STR:
             BubbleSort_Recursivo_str(array, array->length);
-            return true;
+            break;
         case SELECTION_STR:
             SelectionSort_str(array, array->length);
-            return true;
+            break;
         case SELECTION_REC_STR:
             SelectionSort_Recursivo_str(array, array->length);
-            return true;
+            break;
         case INSERTION_STR:
             InsertionSort_str(array, array->length);
-            return true;
+            break;
         case MERGE_STR:
-            return MergeSort_str(array, 0, array->length - 1);
+            foi_ordenado = MergeSort_str(array, 0, array->length - 1);
+            break;
         case QUICK_STR:
             QuickSort_str(array, 0, array->length - 1);
-            return true;
+            break;
         default:
             return false;
     }
+    if (foi_ordenado)
+        array->is_sorted = true;
+    return foi_ordenado;
 }
 
 /* Ordenação */

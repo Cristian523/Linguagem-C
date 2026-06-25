@@ -39,6 +39,7 @@ Vector vector_new_with_size(int size) {            // Inicializa um vector com a
         array.capacity = 0;
     
     array.length = 0;
+    array.is_sorted = true;
     return array;
 }
 
@@ -46,6 +47,7 @@ Vector vector_new_with_cvet(const tipo_vector* vetor, int n) {    // Inicializa 
     Vector array;
     array.vet = NULL;
     array.length = array.capacity = 0;
+    array.is_sorted = true;
     if (vetor != NULL)
         vector_copy_cvet(&array, vetor, n);
     return array;
@@ -58,6 +60,27 @@ Vector vector_new() {                                     // Inicializa um vecto
 bool vector_is_empty(const Vector* array) {
     if (array == NULL || array->length == 0 || array->vet == NULL) return true;
     else return false;
+}
+
+bool vector_is_ordered(const Vector* array) {  // Verifica, em tempo constante com o campo interno is_sorted, se o vetor é ordenado
+    if (array == NULL || array->vet == NULL)
+        return true;
+    return array->is_sorted;
+}
+
+bool vector_check_ordered(Vector* array) {  // Percorre todos os elementos do vetor a fim de verificar se o vetor é ordenado.
+    if (array == NULL || array->vet == NULL)
+        return true;
+    
+    bool eh_ordenado = true;
+    for (int i = 1; i < array->length; i++) {
+        if (number_comparation(array->vet[i - 1], array->vet[i]) > 0) {
+            eh_ordenado = false;
+            break;
+        }
+    }
+    array->is_sorted = eh_ordenado;
+    return eh_ordenado;
 }
 
 bool vector_append(Vector* array, tipo_vector x) {               // Adiciona ao final de array o elemento do segundo parâmetro.
@@ -74,6 +97,8 @@ bool vector_append(Vector* array, tipo_vector x) {               // Adiciona ao 
     array->vet[n] = x;
     array->length = ++n;
     array->capacity = N;
+    if (array->is_sorted && array->length > 1 && number_comparation(array->vet[array->length - 2], array->vet[array->length - 1]) > 0)
+        array->is_sorted = false;
     return true;
 }
 
@@ -99,12 +124,17 @@ bool vector_insert(Vector* array, int posicao, tipo_vector x) {  // Adiciona o e
     array->vet[posicao] = x;
     array->length = ++n;
     array->capacity = N;
+    if (array->is_sorted && array->length > 1) {
+        bool ok_anterior = (posicao == 0) || number_comparation(array->vet[posicao - 1], array->vet[posicao]) <= 0;
+        bool ok_seguinte = (posicao == array->length - 1) || number_comparation(array->vet[posicao], array->vet[posicao + 1]) <= 0;
+        array->is_sorted = ok_anterior && ok_seguinte;
+    }
     return true;
     
 }
 
 bool vector_insert_ordered(Vector* array, tipo_vector x) {   // Adiciona o elemento do segundo parâmetro em Vector de forma ordenada
-    if (array == NULL || array->vet == NULL)
+    if (array == NULL || array->vet == NULL || !array->is_sorted)
         return false;
     int n = array->length;
     int N = array->capacity;
@@ -130,7 +160,8 @@ bool vector_insert_ordered(Vector* array, tipo_vector x) {   // Adiciona o eleme
 bool vector_at(const Vector* array, int posicao, tipo_vector* retorno) {     // Retorna o elemento na posicao indicada 
     if (array == NULL || array->vet == NULL || posicao < 0 || posicao >= array->length)
         return false;
-    *retorno = array->vet[posicao];
+    int elemento = array->vet[posicao];
+    *retorno = elemento;
     return true;
 }
 
@@ -147,9 +178,9 @@ int vector_search(const Vector* array, tipo_vector x) {    // Procura a primeira
     return posicao;
 }
 
-int vector_binary_search(const Vector* array, tipo_vector x) {    // Procura a primeira ocorrência em Vector do elemento indicado no segundo parâmetro. Só funciona corretamente se o campo vet estiver ordenado!
+int vector_binary_search(const Vector* array, tipo_vector x) {    // Procura a primeira ocorrência em Vector do elemento indicado no segundo parâmetro.
     // Válido apenas se array for ordenado!
-        if (array == NULL || array->vet == NULL || array->length <= 0)
+        if (array == NULL || array->vet == NULL || array->length <= 0 || !array->is_sorted)
             return -1;
         int i = 0, j = array->length - 1;
 	int media;
@@ -182,10 +213,12 @@ bool vector_pop_at(Vector* array, int posicao, tipo_vector * retorno) {    // Re
     else {
         *retorno = array->vet[posicao];
         for (int i = posicao; i < array->length - 1; i++)
-            array->vet[i] = array->vet[i + 1];
-        
+            array->vet[i] = array->vet[i + 1];   
     }
+    
     array->length--;
+    if (!array->is_sorted)
+        vector_check_ordered(array);
     return true;
     
 }
@@ -208,6 +241,8 @@ bool vector_remove(Vector* array, tipo_vector x) {             // Remove a prime
         array->vet[i] = array->vet[i + 1];
 
     array->length--;
+    if (!array->is_sorted)
+        vector_check_ordered(array);
     return true;
 }
 
@@ -234,8 +269,10 @@ int vector_count(const Vector* array, tipo_vector x) {    // Retorna a quantidad
 }
 
 void vector_clear(Vector* array) {                 // Considera todo dado disponível em Vector como lixo de memória, em outras palavras, "remove" todos os elementos sem liberar a respectiva memória
-    if (array != NULL && array->vet != NULL)
+    if (array != NULL && array->vet != NULL) {
         array->length = 0;
+        array->is_sorted = true;
+    }
 }
 
 void vector_free(Vector* array) {                  // Libera a memória de Vector.
@@ -243,6 +280,7 @@ void vector_free(Vector* array) {                  // Libera a memória de Vecto
         free(array->vet);
         array->vet = NULL;
         array->length = array->capacity = 0;
+        array->is_sorted = true;
     }
 }
 
@@ -253,15 +291,20 @@ bool vector_copy_cvet(Vector* array, const tipo_vector* vetor, int n) {     // C
     tipo_vector* vetor_aux = (tipo_vector*) malloc(n * sizeof(tipo_vector));      
     if (vetor_aux == NULL)
         return false;
-
-    for (int i = 0; i < n; i++)
+    
+    bool eh_ordenado = true;
+    for (int i = 0; i < n; i++) {
         vetor_aux[i] = vetor[i];
+        if (eh_ordenado && i > 0 && number_comparation(vetor[i - 1], vetor[i]) > 0) 
+            eh_ordenado = false;
+    }
     
     if (array->vet != NULL)        // Se tiver já algum vetor, libera a memória para atribuir ao novo vetor alocado
         free(array->vet); 
     
     array->vet = vetor_aux;
     array->length = array->capacity = n;
+    array->is_sorted = eh_ordenado;
     return true;
 }
 
@@ -395,7 +438,7 @@ static void Particionar(tipo_vector* A, int inicio, int fim, tipo_vector pivo, i
 	}
 }
 
-void BubbleSort(Vector* array, int n) {
+static void BubbleSort(Vector* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -410,7 +453,7 @@ void BubbleSort(Vector* array, int n) {
 	}
 }
 
-void BubbleSort_Recursivo(Vector* array, int n) {
+static void BubbleSort_Recursivo(Vector* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -426,7 +469,7 @@ void BubbleSort_Recursivo(Vector* array, int n) {
 	}
 }
 
-void SelectionSort(Vector* array, int n) {
+static void SelectionSort(Vector* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -443,7 +486,7 @@ void SelectionSort(Vector* array, int n) {
 
 }
 
-void SelectionSort_Recursivo(Vector* array, int n) {
+static void SelectionSort_Recursivo(Vector* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
 
@@ -461,7 +504,7 @@ void SelectionSort_Recursivo(Vector* array, int n) {
 	}
 }
 
-void InsertionSort(Vector* array, int n) {
+static void InsertionSort(Vector* array, int n) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -478,7 +521,7 @@ void InsertionSort(Vector* array, int n) {
 }
 
 
-bool MergeSort(Vector* array, int inicio, int fim) {
+static bool MergeSort(Vector* array, int inicio, int fim) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
     
@@ -491,7 +534,7 @@ bool MergeSort(Vector* array, int inicio, int fim) {
     return true;
 }
 
-void QuickSort(Vector* array, int inicio, int fim) {
+static void QuickSort(Vector* array, int inicio, int fim) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return;
     
@@ -517,36 +560,43 @@ void vector_sort(Vector* array) {
         InsertionSort(array, array->length);
     else
         QuickSort(array, 0, array->length - 1);
+    array->is_sorted = true;
 }
 
 bool vector_choose_sort(Vector* array, SortType escolha) {
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;
-
+    
+    bool foi_ordenado = true;
     switch(escolha) {
         case BUBBLE:
             BubbleSort(array, array->length);
-            return true;
+            break;
         case BUBBLE_REC:
             BubbleSort_Recursivo(array, array->length);
-            return true;
+            break;
         case SELECTION:
             SelectionSort(array, array->length);
-            return true;
+            break;
         case SELECTION_REC:
             SelectionSort_Recursivo(array, array->length);
-            return true;
+            break;
         case INSERTION:
             InsertionSort(array, array->length);
-            return true;
+            break;
         case MERGE:
-            return MergeSort(array, 0, array->length - 1);
+            foi_ordenado = MergeSort(array, 0, array->length - 1);
+            break;
         case QUICK:
             QuickSort(array, 0, array->length - 1);
-            return true;
+            break;
         default:
             return false;
     }
+    
+    if (foi_ordenado)
+        array->is_sorted = true;
+    return foi_ordenado;
 }
 
 /* Ordenação */
