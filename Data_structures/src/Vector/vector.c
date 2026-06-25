@@ -160,7 +160,7 @@ bool vector_insert_ordered(Vector* array, tipo_vector x) {   // Adiciona o eleme
 bool vector_at(const Vector* array, int posicao, tipo_vector* retorno) {     // Retorna o elemento na posicao indicada 
     if (array == NULL || array->vet == NULL || posicao < 0 || posicao >= array->length)
         return false;
-    int elemento = array->vet[posicao];
+    tipo_vector elemento = array->vet[posicao];
     *retorno = elemento;
     return true;
 }
@@ -200,7 +200,9 @@ int vector_binary_search(const Vector* array, tipo_vector x) {    // Procura a p
 bool vector_pop(Vector* array, tipo_vector * retorno) {         // Remove o elemento de Vector da última posição e retorna este elemento no segundo parâmetro.
     if (array == NULL || array->vet == NULL || array->length <= 0)
         return false;    
-    *retorno = array->vet[array->length - 1];
+    
+    tipo_vector elemento = array->vet[array->length - 1];
+    *retorno = elemento;
     array->length--;
     return true;
 }
@@ -211,7 +213,8 @@ bool vector_pop_at(Vector* array, int posicao, tipo_vector * retorno) {    // Re
     else if (posicao < 0 || posicao >= array->length)
         return false;
     else {
-        *retorno = array->vet[posicao];
+        tipo_vector elemento = array->vet[posicao];
+        *retorno = elemento;
         for (int i = posicao; i < array->length - 1; i++)
             array->vet[i] = array->vet[i + 1];   
     }
