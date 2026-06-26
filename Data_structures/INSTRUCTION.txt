@@ -1,0 +1,43 @@
+*** Aqui está como usar essas bibliotecas em linux com editor de texto e terminal de maneira mais fácil e algumas observações. ***
+
+1) Nessa pasta há um arquivo chamado de "main.c" e apenas esse arquivo que deixei tem como usar as minhas bibliotecas sem precisar se preocupar em editar o arquivo "Makefile" aqui existente. Esse arquivo é o que você pode editar para testar as bibliotecas ou até mesmo para usar para alguma tarefa que ache relevante.
+   Para usar, abra o terminal do linux nessa pasta e, após modificar o arquivo "main.c" com o que queira usar/testar, use o comando "make" e o código será executado.
+
+2) Além de "main.c" e "Makefile", eis aqui também o seguinte:
+	2.1) Pasta "src" em que contém as bibliotecas
+	2.2) Arquivo "data_structures.h" caso queira incluir todos os arquivos de uma vez só
+	2.3) Arquivo "README.TXT" que contém algumas informações e observações sobre esse projeto (leiam esse arquivo, pois ele é importante)
+	2.4) Arquivo "Makefile(externo)" também para usar
+	
+3) Sobre esse "Makefile(externo)" citado no item 2.4), saiba que ele é equivalente ao "Makefile" padrão, mas pode usar esse arquivo junto ao "main.c" aqui citado fora da pasta "Data_structures", desde que o diretório que contenha "Makefile(externo)" e "main.c" contenha também essa pasta "Data_structures" da seguinte forma:
+	
+	Nome_pasta
+	   |
+	   |  - "main.c"
+	   |  - "Makefile(externo)"
+	   |  - Data_structures
+	   
+   Com isso, basta renomear esse arquivo "Makefile(externo)" para "Makefile" em uma estrutura de pasta de forma semelhante como está acima e, após modificar o arquivo "main.c" para usar como quiser, digite no terminal do linux o comando "make" para executar o programa, mas o terminal deve estar aberto nessa pasta que eu deixei como exemplo sendo "Nome_pasta" (pode ser outro nome de sua preferência, foi só uma demonstração)
+   
+   
+*** OBSERVAÇÕES IMPORTANTES ***   
+   
+   OBS1: Caso queira adicionar mais arquivos além do "main.c" para executar essas bibliotecas, daí será preciso aprender como criar/modificar um arquivo "Makefile", já que essa forma foi a mais simples e legível para criar esse arquivo e para executá-lo sem problemas.
+   OBS2: Se prefirir você mesmo criar seu próprio "Makefile", configurar para usar esse projeto em alguma IDE ou executar arquivos específicos sem ter que usar a biblioteca toda, vou deixar aqui o que cada arquivo da pasta "Data_structures/src" usa entre si para ficar mais legível e simples:
+	
+	1) Arquivos da subpasta String: Nenhum arquivo auxiliar externo a essa pasta
+   	2) Arquivos da subpasta Vector: Precisa dos arquivos de String
+   	3) Arquivos da subpasta LinkedList: Precisa dos arquivos de String
+  	4) Arquivos da subpasta Stack: Precisa dos arquivos de String e de LinkedList
+  	5) Arquivos da subpasta Queue: Precisa dos arquivos de String e de LinkedList
+  	6) Arquivos da subpasta PrirorityQueue: Precisa dos arquivos de String
+  	7) Arquivos da subpasta HashTable: Precisa dos arquivos de String e LinkedList (este último em específico para "hashtable_sls.c" e "hashtable_sls.h")
+  	8) Arquivos da subpasta Tree: Precisa dos arquivos de String
+  	
+   OBS3: Como importação de arquivos mínimos, eu recomendo incluir as libs da linguagem C que foram bastante usadas nas bibliotecas para seu arquivo principal de uso: <stdio.h>, <stdlib.h> e <stdbool.h>
+   Também de forma mais legível e simples, saiba que as seguintes libs da linguagem C também foram usadas em meus arquivos, mas esses não são necessários incluir no seu arquivo principal de uso:
+
+   1) <string.h>
+   2) <limits.h>
+   3) <math.h>  (precisa usar a flag "-lm" caso compile manualmente no terminal)
+  	
