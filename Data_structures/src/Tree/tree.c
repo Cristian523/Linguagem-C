@@ -154,7 +154,7 @@ void tree_println_detailed(const Tree* arvore) {  // Usa a função tree_print_d
     printf("\n");
 }
 
-int tree_no_height(const Tree* arvore, tipo_tree elemento) {    // Retorna a altura de um nó específico, se ele existir
+int tree_node_height(const Tree* arvore, tipo_tree elemento) {    // Retorna a altura de um nó específico, se ele existir
     if (tree_is_empty(arvore))
         return -1;
     No_tree* p = arvore->T;

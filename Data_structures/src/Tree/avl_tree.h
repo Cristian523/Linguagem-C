@@ -114,7 +114,7 @@ void avl_tree_println(const AvlTree*);
 void avl_tree_println_detailed(const AvlTree*);
 // @ Usa a função avl_tree_print_detailed() e imprime o caractere '\n' ao final.
 
-int avl_tree_no_height(const AvlTree*, tipo_avl_tree);
+int avl_tree_node_height(const AvlTree*, tipo_avl_tree);
 // @ Se o elemento do segundo parâmetro for encontrado na árvore, será retornado a sua respectiva altura; caso o contrário, será retornado -1. Se o primeiro parâmetro for nulo ou a árvore for vazia, também será retornado -1.
 
 int avl_tree_height(const AvlTree*);

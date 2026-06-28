@@ -113,7 +113,7 @@ void tree_println(const Tree*);
 void tree_println_detailed(const Tree*);
 // @ Usa a função tree_print_detailed() e imprime o caractere '\n' ao final.
 
-int tree_no_height(const Tree*, tipo_tree);
+int tree_node_height(const Tree*, tipo_tree);
 // @ Se o elemento do segundo parâmetro for encontrado na árvore, será retornado a sua respectiva altura; caso o contrário, será retornado -1. Se o primeiro parâmetro for nulo ou a árvore for vazia, também será retornado -1.
 
 int tree_height(const Tree*);

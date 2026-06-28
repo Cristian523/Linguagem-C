@@ -150,7 +150,7 @@ void avl_tree_println_detailed(const AvlTree* arvore) {   // Usa a função avl_
     printf("\n");
 }
 
-int avl_tree_no_height(const AvlTree* arvore, tipo_avl_tree elemento) {   // Retorna a altura de um determinado nó, se existente.
+int avl_tree_node_height(const AvlTree* arvore, tipo_avl_tree elemento) {   // Retorna a altura de um determinado nó, se existente.
     if (avl_tree_is_empty(arvore))
         return -1;
     No_avl_tree* p = arvore->T;
