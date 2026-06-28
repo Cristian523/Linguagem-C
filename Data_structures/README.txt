@@ -22,7 +22,8 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 	2.15) Tree
 	2.16) AvlTree
 	
-	OBS: Olhe cada arquivo .h de cada estrutura de dado acima e, caso existente, outros arquivos "README.txt", pois eu deixo informações do que cada função faz, além do que acontece em caso de falhas.
+	OBS1: Olhe cada arquivo .h de cada estrutura de dado acima e, caso existente, outros arquivos "README.txt", pois eu deixo informações do que cada função faz, além do que acontece em caso de falhas.
+	OBS2: Cada estrutura dessa PRECISA SER INICIALIZADA com alguma função new() que foi criada!
 	
 3) Explicação sobre as siglas:
 	3.1) str: Armazena Strings
