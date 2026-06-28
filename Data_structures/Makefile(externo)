@@ -1,0 +1,98 @@
+OBJETOS = Data_structures/bin/main.o Data_structures/bin/c_string.o Data_structures/bin/vector.o Data_structures/bin/vector_str.o \
+	  Data_structures/bin/linked_list.o Data_structures/bin/linked_list_str.o Data_structures/bin/stack.o Data_structures/bin/stack_str.o \
+	  Data_structures/bin/queue.o Data_structures/bin/queue_str.o Data_structures/bin/hash_table.o Data_structures/bin/hash_table_sls.o \
+	  Data_structures/bin/hash_table_sn.o Data_structures/bin/tree.o Data_structures/bin/avl_tree.o Data_structures/bin/priority_queue.o \
+	  Data_structures/bin/priority_queue_str.o
+	  
+ARQUIVOS_H = Data_structures/data_structures.h Data_structures/src/String/c_string.h Data_structures/src/Vector/vector.h Data_structures/src/Vector/vector_str.h \
+	     Data_structures/src/LinkedList/linked_list.h Data_structures/src/LinkedList/linked_list_str.h Data_structures/src/Stack/stack.h \
+	     Data_structures/src/Stack/stack_str.h Data_structures/src/Queue/queue.h Data_structures/src/Queue/queue_str.h Data_structures/src/HashTable/hash_table.h \
+	     Data_structures/src/HashTable/hash_table_sls.h Data_structures/src/HashTable/hash_table_sn.h Data_structures/src/Tree/tree.h Data_structures/src/Tree/avl_tree.h \
+	     Data_structures/src/PriorityQueue/priority_queue.h Data_structures/src/PriorityQueue/priority_queue_str.h
+
+STRING = Data_structures/src/String/c_string.c Data_structures/src/String/c_string.h
+
+INCLUDES = -I./Data_structures -I./Data_structures/src/String -I./Data_structures/src/Vector -I./Data_structures/src/LinkedList -I./Data_structures/src/Stack \
+	   -I./Data_structures/src/Queue -I./Data_structures/src/HashTable -I./Data_structures/src/Tree -I./Data_structures/src/PriorityQueue
+
+all: 	$(OBJETOS)
+	@gcc -g $(OBJETOS) -o executavel -lm
+	@ ./executavel
+	@ #valgrind --leak-check=full --track-origins=yes ./executavel
+	
+	
+Data_structures/bin/main.o: main.c $(ARQUIVOS_H)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c main.c -o Data_structures/bin/main.o
+	
+Data_structures/bin/c_string.o: Data_structures/src/String/c_string.c Data_structures/src/String/c_string.h
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/String/c_string.c -o Data_structures/bin/c_string.o
+
+Data_structures/bin/vector.o: Data_structures/src/Vector/vector.c Data_structures/src/Vector/vector.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Vector/vector.c -o Data_structures/bin/vector.o
+ 
+Data_structures/bin/vector_str.o: Data_structures/src/Vector/vector_str.c Data_structures/src/Vector/vector_str.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Vector/vector_str.c -o Data_structures/bin/vector_str.o
+	
+Data_structures/bin/linked_list.o: Data_structures/src/LinkedList/linked_list.c Data_structures/src/LinkedList/linked_list.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/LinkedList/linked_list.c -o Data_structures/bin/linked_list.o
+	
+Data_structures/bin/linked_list_str.o: Data_structures/src/LinkedList/linked_list_str.c Data_structures/src/LinkedList/linked_list_str.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/LinkedList/linked_list_str.c -o Data_structures/bin/linked_list_str.o
+
+Data_structures/bin/stack.o: Data_structures/src/Stack/stack.c Data_structures/src/Stack/stack.h Data_structures/src/LinkedList/linked_list.c \
+			     Data_structures/src/LinkedList/linked_list.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Stack/stack.c -o Data_structures/bin/stack.o
+	
+Data_structures/bin/stack_str.o: Data_structures/src/Stack/stack_str.c Data_structures/src/Stack/stack_str.h Data_structures/src/LinkedList/linked_list_str.c \
+				 Data_structures/src/LinkedList/linked_list_str.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Stack/stack_str.c -o Data_structures/bin/stack_str.o
+
+Data_structures/bin/queue.o: Data_structures/src/Queue/queue.c Data_structures/src/Queue/queue.h Data_structures/src/LinkedList/linked_list.c \
+			     Data_structures/src/LinkedList/linked_list.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Queue/queue.c -o Data_structures/bin/queue.o
+	
+Data_structures/bin/queue_str.o: Data_structures/src/Queue/queue_str.c Data_structures/src/Queue/queue_str.h Data_structures/src/LinkedList/linked_list_str.c \
+				 Data_structures/src/LinkedList/linked_list_str.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Queue/queue_str.c -o Data_structures/bin/queue_str.o
+	
+Data_structures/bin/hash_table.o: Data_structures/src/HashTable/hash_table.c Data_structures/src/HashTable/hash_table.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/HashTable/hash_table.c -o Data_structures/bin/hash_table.o
+
+Data_structures/bin/hash_table_sls.o: Data_structures/src/HashTable/hash_table_sls.c Data_structures/src/HashTable/hash_table_sls.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/HashTable/hash_table_sls.c -o Data_structures/bin/hash_table_sls.o
+
+Data_structures/bin/hash_table_sn.o: Data_structures/src/HashTable/hash_table_sn.c Data_structures/src/HashTable/hash_table_sn.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/HashTable/hash_table_sn.c -o Data_structures/bin/hash_table_sn.o
+
+Data_structures/bin/tree.o: Data_structures/src/Tree/tree.c Data_structures/src/Tree/tree.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Tree/tree.c -o Data_structures/bin/tree.o
+	
+Data_structures/bin/avl_tree.o: Data_structures/src/Tree/avl_tree.c Data_structures/src/Tree/avl_tree.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/Tree/avl_tree.c -o Data_structures/bin/avl_tree.o
+	
+Data_structures/bin/priority_queue.o: Data_structures/src/PriorityQueue/priority_queue.c Data_structures/src/PriorityQueue/priority_queue.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/PriorityQueue/priority_queue.c -o Data_structures/bin/priority_queue.o
+
+Data_structures/bin/priority_queue_str.o: Data_structures/src/PriorityQueue/priority_queue_str.c Data_structures/src/PriorityQueue/priority_queue_str.h $(STRING)
+	@mkdir -p Data_structures/bin
+	@gcc $(INCLUDES) -c Data_structures/src/PriorityQueue/priority_queue_str.c -o Data_structures/bin/priority_queue_str.o
+	
+clean:
+	@rm -rf Data_structures/bin/ executavel
+	@echo "Os arquivos objeto foram removidos com sucesso!"
