@@ -31,7 +31,7 @@ bool linked_list_str_is_empty(const LinkedList_str*);
 // @ Verifica se é uma LinkedList_str vazia. Se o parâmetro for nulo, o campo length for 0 ou o campo inicio for nulo, será retornado true.
 
 bool linked_list_str_reset(LinkedList_str*);
-/* @ Reseta o interador interamente (o ponteiro atual) para apontar para o primeiro elemento da lista. Caso o parâmetro seja nulo ou a lista esteja vazia, retornará false.
+/* @ Reseta o iterador interamente (o ponteiro atual) para apontar para o primeiro elemento da lista. Caso o parâmetro seja nulo ou a lista esteja vazia, retornará false.
   OBS: Sempre chame esta função antes de navegar pela lista!!!   
 */
 

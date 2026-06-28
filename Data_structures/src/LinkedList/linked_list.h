@@ -87,7 +87,7 @@ bool linked_list_is_empty(const LinkedList*);
 // @ Verifica se é uma LinkedList vazia. Se o parâmetro for nulo, o campo length for 0 ou o campo inicio for nulo, será retornado true.
 
 bool linked_list_reset(LinkedList*);
-/* @ Reseta o interador interamente (o ponteiro atual) para apontar para o primeiro elemento da lista. Caso o parâmetro seja nulo ou a lista esteja vazia, retornará false.
+/* @ Reseta o iterador interamente (o ponteiro atual) para apontar para o primeiro elemento da lista. Caso o parâmetro seja nulo ou a lista esteja vazia, retornará false.
   OBS: Sempre chame esta função antes de navegar pela lista!!!   
 */
 
