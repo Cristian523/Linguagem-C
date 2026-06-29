@@ -1,6 +1,6 @@
-> *** Algumas observações e informações sobre este projeto: ***
+# *** Algumas observações e informações sobre este projeto: ***
 
-> OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arquivo .h que queira usar o tipo de dado. 
+>> OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arquivo .h que queira usar o tipo de dado. 
 
 1) Esta pasta contém minhas implementações de estruturas de dados em C em que eu priorizo segurança dos dados do que realmente complexidade (principalmente em estruturas que armazenam String), a fim de evitar problemas e inconsistências em caso de mudança de valores. 
 
