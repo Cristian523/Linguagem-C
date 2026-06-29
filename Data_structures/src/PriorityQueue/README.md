@@ -13,4 +13,4 @@
   
 
 
-4) A String obtida com algum to_string() aqui implementado representa o vetor internamente, que este vetor representa uma árvore binária de busca cheia ou quase cheia (se conhesse bem uma fila de prioridade, vai saber como está estruturada essa árvore no vetor).
+4) A String obtida com algum to_string() aqui implementado representa o vetor internamente, que este vetor representa uma árvore binária cheia ou quase cheia (se conhesse bem uma fila de prioridade, vai saber como está estruturada essa árvore no vetor).
