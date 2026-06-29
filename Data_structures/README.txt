@@ -24,6 +24,7 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 	
 	OBS1: Olhe cada arquivo .h de cada estrutura de dado acima e, caso existente, outros arquivos "README.txt", pois eu deixo informações do que cada função faz, além do que acontece em caso de falhas.
 	OBS2: Cada estrutura dessa PRECISA SER INICIALIZADA com alguma função new() que foi criada!
+	OBS3: Em funções em que se tem uma String como retorno obtido em um parâmetro, saiba que o conteúdo antigo será removido para a obtenção do novo. Para que isso ocorra bem, é sempre necessário passar uma string inicializada, seja tendo conteúdo ou uma string vazia com o string_new_empty().
 	
 3) Explicação sobre as siglas:
 	3.1) str: Armazena Strings
