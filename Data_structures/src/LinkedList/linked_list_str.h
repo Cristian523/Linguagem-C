@@ -60,7 +60,8 @@ bool linked_list_str_insert_begin_cstr(LinkedList_str*, const char*);
 
 bool linked_list_str_insert_end(LinkedList_str*, const String);
 /* @ Insere o elemento do segundo parâmetro no fim da lista. Se não conseguir por problema de memória ou parâmetro for inválido, será retornado false
-   OBS: Será feito uma cópia da String antes de fazer a inserção e essa cópia que será usada.
+   OBS1: Será feito uma cópia da String antes de fazer a inserção e essa cópia que será usada.
+   OBS2: Essa função funciona em tempo contante devido ao ponteiro interno fim.
 */
 
 bool linked_list_str_insert_end_cstr(LinkedList_str*, const char*);

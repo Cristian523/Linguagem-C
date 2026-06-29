@@ -110,7 +110,9 @@ bool linked_list_insert_begin(LinkedList*, tipo_linked_list);
 // @ Insere o elemento do segundo parâmetro no início da lista. Se não conseguir por problema de memória ou parâmetro for inválido, será retornado false
 
 bool linked_list_insert_end(LinkedList*, tipo_linked_list);
-// @ Insere o elemento do segundo parâmetro no fim da lista. Se não conseguir por problema de memória ou parâmetro for inválido, será retornado false
+/* @ Insere o elemento do segundo parâmetro no fim da lista. Se não conseguir por problema de memória ou parâmetro for inválido, será retornado false
+   OBS: Essa função funciona em tempo contante devido ao ponteiro interno fim.
+*/
 
 bool linked_list_insert_ordered(LinkedList*, tipo_linked_list);
 /* @ Insere o elemento do segundo parâmetro na lista de forma ordenada. Se não conseguir por problema de memória ou parâmetro inválido, será retornado false
