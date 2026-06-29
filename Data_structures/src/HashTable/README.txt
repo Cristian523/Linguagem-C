@@ -17,7 +17,7 @@
 
 4) Ao usar qualquer função de obter todas as chaves ou obter todos os pares chave-valor, é necessário liberar a memória corretamente. Eis aqui alguns exemplos, supondo que existe uma variável tabela de tipo:
 
-   3.1) HashTable:
+   4.1) HashTable:
 	/* Se quiser obter todas as chaves:  */
 
 	// Ao invés de tipo_value*, poderia passar o tipo correspondente a tipo_value, como double* se não tiver alterado o que foi implementado como TIPO_VALUE_DOUBLE_G por padrão:
@@ -39,7 +39,7 @@
 	
 	
 	
-   3.2) HashTable_sn:
+   4.2) HashTable_sn:
 	/* Se quiser obter todas as chaves:  */
 	
 	String* chaves = hash_table_sn_get_keys(&tabela);
@@ -67,7 +67,7 @@
 	
 	
 
-   3.3) HashTable_sls
+   4.3) HashTable_sls
    	/* Se quiser obter todas as chaves:  */
 	
 	String* chaves = hash_table_sls_get_keys(&tabela);
