@@ -1,4 +1,4 @@
-*** Leia com calma cada observação aqui e os arquivos linked_list.h e linked_list_str.h ***
+# *** Leia com calma cada observação aqui e os arquivos linked_list.h e linked_list_str.h ***
 
 1) Foram criadas várias funções para que não tenha que mexer diretamente nas structs LinkedList e LinkedList_str. Então, sempre que for interagir com os valores armazenados, recomendo que use as funções aqui criadas, pois assim você evita problemas.
    OBS: Se for fazer muita questão de usar os campos das structs, então pode usar, mas apenas para obter o que foi armazenado como *leitura*, isto é, *NUNCA* modifique qualquer campo interno diretamente, pois, se modificado, isso pode acarretar em problemas.
@@ -9,7 +9,7 @@
  
  3) Funções que tiver como retorno obtido por parâmetro sendo String deve-se fazer o seguinte: crie uma variável String e *inicialize-a* (recomendo que seja com o string_new_empty()) para que então use a função desejada. 
          
-         OBS: Lembre-se de que, após usar a função e o retorno para o que for necessário, a respectiva memória da String deve ser liberada!
+      * OBS: Lembre-se de que, após usar a função e o retorno para o que for necessário, a respectiva memória da String deve ser liberada!
  
  
  4) Diferente como ocorre com Vector e Vector_str, LinkedList e LinkedList_str não possuem tratamento com algum campo interno que verifique se a lista está ordenada. Então, as funções linked_list_insert_ordered() e linked_list_str_insert_ordered() aqui implementadas funcionam corretamente apenas se a lista estiver ordenada.

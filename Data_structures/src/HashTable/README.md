@@ -1,4 +1,4 @@
-*** Leia com calma cada observação aqui e os arquivos hash_table.h, hash_table_sn.h e hash_table_sls.h ***
+# *** Leia com calma cada observação aqui e os arquivos hash_table.h, hash_table_sn.h e hash_table_sls.h ***
 
 
 1) Explicação rápida de que o que cada tabela hash de encadeamento externo aqui armazena como chave e valor:
@@ -15,7 +15,7 @@
 
 3) Para obter sem problemas o retorno em parâmetro da função hash_table_sls_get(), crie uma variável do tipo que for necessário (neste caso LinkedList_str) e inicialize-a (com o linked_list_str_new()) e, após isso, use a função desejada passando o endereço da variável com o &.
 		
-		OBS: Após obter o retorno e usá-lo para o que for necessário, lembre-se de liberar a memória com linked_list_str_free().
+	* OBS: Após obter o retorno e usá-lo para o que for necessário, lembre-se de liberar a memória com linked_list_str_free().
 
 
 

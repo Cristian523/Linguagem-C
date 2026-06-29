@@ -1,9 +1,9 @@
-*** Leia com calma cada observação aqui e os arquivos vector.h e vector_str.h ***
+# *** Leia com calma cada observação aqui e os arquivos vector.h e vector_str.h ***
 
 
 1) Foram criadas várias funções para que não tenha que mexer diretamente nas structs Vector e Vector_str. Então, sempre que for interagir com os valores armazenados, recomendo que use as funções aqui criadas, pois assim você evita problemas.
    		
-		OBS: Se for fazer muita questão de usar os campos das structs, então pode usar, mas apenas para obter o que foi armazenado como *leitura*, isto é, *NUNCA* modifique qualquer campo interno diretamente, pois, se modificado, isso pode acarretar em problemas.
+	* OBS: Se for fazer muita questão de usar os campos das structs, então pode usar, mas apenas para obter o que foi armazenado como *leitura*, isto é, *NUNCA* modifique qualquer campo interno diretamente, pois, se modificado, isso pode acarretar em problemas.
  
 
 
@@ -27,21 +27,21 @@
 
 4) Lembre-se de que as funções vector_to_cvet() e vector_str_to_cvet() retornam uma cópia do vetor interno por alocação dinâmica, logo é necessário que a libere após o uso.
 	
-		OBS: No caso do vetor obtido após o vector_str_to_cvet(), usar só o free() não liberará a memória corretamente. Uma forma de liberar a memória totalmente é a seguinte:
+	* OBS: No caso do vetor obtido após o vector_str_to_cvet(), usar só o free() não liberará a memória corretamente. Uma forma de liberar a memória totalmente é a seguinte:
 
 
 
-		// Imagine que exista uma variável vetor do tipo Vector_str que contenha todas as Strings usadas.
-		
-		int n = vector_str_size(&vetor);
-		String* array = vector_str_to_cvet(&vetor);
-		
-		// Após usar a variável array para o que precisar, eis como liberar a memória:
-		
-		for (int i = 0; i < n; i++) {
-			string_free(&array[i]);   // Libera a memória de cada String
-		}
-		free(array);  // Libera a memória de array
+			// Imagine que exista uma variável vetor do tipo Vector_str que contenha todas as Strings usadas.
+			
+			int n = vector_str_size(&vetor);
+			String* array = vector_str_to_cvet(&vetor);
+			
+			// Após usar a variável array para o que precisar, eis como liberar a memória:
+			
+			for (int i = 0; i < n; i++) {
+				string_free(&array[i]);   // Libera a memória de cada String
+			}
+			free(array);  // Libera a memória de array
 	
 
 5) Tanto em Vector como em Vector_str existe um campo chamado is_sorted em que, em tempo constante, fica armazenado se o vetor interno está ordenado. 
@@ -50,9 +50,9 @@
 	
 	5.2) Se adicionar algum elemento que quebre a ordem, então is_sorted será false. A única forma de tornar is_sorted true é com algum pop_at (vector_pop_at() ou vector_str_pop_at()) ou com algum remove (vector_remove() ou vector_str_remove()) caso remova justamente o elemento que esteja quebrando a ordem ou até mesmo com alguma função de ordenação implementada.
 	
-		OBS1: As funções vector_pop() e vector_str_pop() não atualizam o campo is_sorted a fim de manter a complexidade constante (isto é, θ(1)). Então, se apenas o último elemento que foi inserido quebrou a ordenação e você use algum desses pop's mencionados, o campo is_sorted permanece false, sendo necessário usar manualmente o vector_check_ordered() ou vector_str_check_ordered().
+	* OBS1: As funções vector_pop() e vector_str_pop() não atualizam o campo is_sorted a fim de manter a complexidade constante (isto é, θ(1)). Então, se apenas o último elemento que foi inserido quebrou a ordenação e você use algum desses pop's mencionados, o campo is_sorted permanece false, sendo necessário usar manualmente o vector_check_ordered() ou vector_str_check_ordered().
 		
-		OBS2: Só é possível usar a inserção ordenada e a busca binária se o vetor estiver ordenado, então cuidado principalmente com o que foi dito em OBS1.
+	* OBS2: Só é possível usar a inserção ordenada e a busca binária se o vetor estiver ordenado, então cuidado principalmente com o que foi dito em OBS1.
 	
 
 
