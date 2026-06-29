@@ -21,7 +21,7 @@
  
 3) Para obter sem problemas o retorno no terceiro parâmetro nas funções vector_str_at() e vector_str_pop_at(), crie uma variável do tipo String e inicialize-a (uma recomendação é usar o string_new_empty()) e, após isso, use a função desejada passando o endereço da variável com o &.
 		
-		OBS: Lembre-se de sempre liberar a memória do tipo String obtido.
+	* OBS: Lembre-se de sempre liberar a memória do tipo String obtido.
 
 
 
