@@ -29,13 +29,13 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 	
 3) Explicação sobre as siglas:
    	
-	3.1) str: Armazena Strings
-	
-	3.2) sn: Armazena String como chave e número como valor
-	
-	3.3) sls: Armazena String como chave e LinkedList_str como valor
-	
-	3.4) Qualquer outra estrutura de dados sem sigla armazena internamente números
+		3.1) str: Armazena Strings
+
+		3.2) sn: Armazena String como chave e número como valor
+		
+		3.3) sls: Armazena String como chave e LinkedList_str como valor
+		
+		3.4) Qualquer outra estrutura de dados sem sigla armazena internamente números
 		
 4) Por padrão, em cada arquivo .h de estruturas de dados que contenha números, foi configurado um tipo primitivo para que armazenem números por padrão, neste caso é o que eu nomeio como DOUBLE_G. Se quiser alterar, basta comentar a linha da respectiva macro (do respectivo "#define") e descomentar (escolher) o seu tipo primitivo de sua preferência. As escolhas possíveis são:
 
@@ -63,7 +63,8 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 		Reforçando que, se quiser alterar o tipo primitivo, basta comentar o que não quer usar e descomentar o que realmente quer usar
 	
 	
-		OBSERVAÇÃO2: Apesar de em vários arquivos .h eu criar um tipo com um typedef usando um tipo primitivo (como tipo_vector, tipo_linked_list, etc), não é necessário usar esse tipo criado nas funções diretamente, basta usar o mesmo tipo que foi comentado mais acima caso queira evitar muita verbosidade. 		          Exemplo: Se uma função tiver exigindo algum argumento como tipo_vector, basta usar o tipo declarado na macro de tipos, isto é, double (se seguir o padrão que eu criei) ou o tipo de sua preferência (se tiver escolhido LONG por exemplo, então use long), e por aí vai.
+		OBSERVAÇÃO2: Apesar de em vários arquivos .h eu criar um tipo com um typedef usando um tipo primitivo (como tipo_vector, tipo_linked_list, etc), não é necessário usar esse tipo criado nas funções diretamente, basta usar o mesmo tipo que foi comentado mais acima caso queira evitar muita verbosidade. 		          
+		Exemplo: Se uma função tiver exigindo algum argumento como tipo_vector, basta usar o tipo declarado na macro de tipos, isto é, double (se seguir o padrão que eu criei) ou o tipo de sua preferência (se tiver escolhido LONG por exemplo, então use long), e por aí vai.
 
 
 
