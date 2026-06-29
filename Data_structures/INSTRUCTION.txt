@@ -6,7 +6,7 @@
 2) Além de "main.c" e "Makefile", eis aqui também o seguinte:
 	2.1) Pasta "src" em que contém as bibliotecas
 	2.2) Arquivo "data_structures.h" caso queira incluir todos os arquivos de uma vez só
-	2.3) Arquivo "README.TXT" que contém algumas informações e observações sobre esse projeto (leiam esse arquivo, pois ele é importante)
+	2.3) Arquivo "README" que contém algumas informações e observações sobre esse projeto (leiam esse arquivo, pois ele é importante)
 	2.4) Arquivo "Makefile(externo)" também para usar
 	
 3) Sobre esse "Makefile(externo)" citado no item 2.4), saiba que ele é equivalente ao "Makefile" padrão, mas pode usar esse arquivo junto ao "main.c" aqui citado fora da pasta "Data_structures", desde que o diretório que contenha "Makefile(externo)" e "main.c" contenha também essa pasta "Data_structures" da seguinte forma:
