@@ -28,7 +28,8 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 		OBS3: Em funções em que se tem uma String como retorno obtido em um parâmetro, saiba que o conteúdo antigo será removido para a obtenção do novo. Para que isso ocorra bem, é sempre necessário passar uma string inicializada, seja tendo conteúdo ou uma string vazia com o string_new_empty().
 	
 3) Explicação sobre as siglas:
-		3.1) str: Armazena Strings
+
+   		3.1) str: Armazena Strings
 		3.2) sn: Armazena String como chave e número como valor
 		3.3) sls: Armazena String como chave e LinkedList_str como valor
 		3.4) Qualquer outra estrutura de dados sem sigla armazena internamente números
