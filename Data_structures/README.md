@@ -3,6 +3,7 @@
 >> OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arquivo .h que queira usar o tipo de dado. 
 
 1) Esta pasta contém minhas implementações de estruturas de dados em C em que eu priorizo segurança dos dados do que realmente complexidade (principalmente em estruturas que armazenam String), a fim de evitar problemas e inconsistências em caso de mudança de valores. 
+   * OBS: Complexidade é sim algo que me importo nos meus códigos, porém dou ainda mais importância na segurança dos dados armazenados
 
 2) Tudo o que foi implementado:
 
