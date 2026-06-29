@@ -28,11 +28,14 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 		OBS3: Em funções em que se tem uma String como retorno obtido em um parâmetro, saiba que o conteúdo antigo será removido para a obtenção do novo. Para que isso ocorra bem, é sempre necessário passar uma string inicializada, seja tendo conteúdo ou uma string vazia com o string_new_empty().
 	
 3) Explicação sobre as siglas:
-
-   		3.1) str: Armazena Strings
-		3.2) sn: Armazena String como chave e número como valor
-		3.3) sls: Armazena String como chave e LinkedList_str como valor
-		3.4) Qualquer outra estrutura de dados sem sigla armazena internamente números
+   	
+	3.1) str: Armazena Strings
+	
+	3.2) sn: Armazena String como chave e número como valor
+	
+	3.3) sls: Armazena String como chave e LinkedList_str como valor
+	
+	3.4) Qualquer outra estrutura de dados sem sigla armazena internamente números
 		
 4) Por padrão, em cada arquivo .h de estruturas de dados que contenha números, foi configurado um tipo primitivo para que armazenem números por padrão, neste caso é o que eu nomeio como DOUBLE_G. Se quiser alterar, basta comentar a linha da respectiva macro (do respectivo "#define") e descomentar (escolher) o seu tipo primitivo de sua preferência. As escolhas possíveis são:
 
@@ -66,10 +69,14 @@ OBSERVAÇÃO PRINCIPAL: Leia com calma cada informação aqui passada e cada arq
 
 5) Algumas observações e limitações que tive:
 		
-		5.1) Como pôde perceber nos itens 2) a 4), eu tentei contornar limitações naturais por usar a linguagem C puro: não ter alguma espécie de tipo parametrizado de maneira não verbosa e mais simples de entender, como generics da linguagem Java ou templates da linguagem C++. 
-	   	5.2) Ao olhar cada arquivo .h, vai perceber que eu fui muito verboso com algumas funções e repeti várias com pequenas mudanças de parâmetro e nomes, justamente por não ter um recurso que várias linguagens possuem: sobrecarga de função. Sinto muito pela grande verbosidade dos nomes das funções caso encomode, mas o C não possui esse recurso que tornaria as funções bem melhores para chamá-las. Caso se incomode em digitar nomes longos toda vez, uma sugestão é usar apontadores de função, assim pode incomodar menos caso use alguma função com mais frequência.
-	   	5.3) Várias funções eu retorno tipo booleano para indicar uma possibilidade de falha também por limitação de algo que o C não possui: tratamento de erros try-catch como no Java ou try-exception como no Python. No caso o que mais atrapalha são em funções em que se retorna algum valor armazenado, como vector_at e stack_peek, em que eu tive que deixar um parâmetro específico para servir de retorno, o que é um pouco chato, mas necessário para evitar ao máximo que o usuário tenha que se preocupar em criar variáveis ponteiros (nesses casos do vector_at ou funções semelhantes, basta criar uma variável de tipo correspodente à estrutura e passar o endereço dela com o &) ou que tenha algum comportamento indefinido.
-	   	5.4) Com o item 5.3) também tenho outra limitação: para ter retorno por parâmetro com tipos compostos (nesse caso String ou alguma outra estrutura de dado) sempre crie uma variável e  *inicialize-a* (usando algum inicizalizador já existente) para não se ter problemas, pois em cada função dessa de retorno por parâmetro, eu apago o conteúdo antigo que esteja armazenado, logo se tiver inicizalizado nada, vai tentar liberar algum lixo de memória e dará problemas. No caso de String (que é o tipo composto de mais uso nesses casos), crie um tipo String e o inicialize com string_new_empty() para não gastar muita memória, aí depois sim usar alguma dessas funções de retorno de parâmetro que citei.
-	   	5.5) Cada implementação que faço eu uso e abuso bastante da heap, então sempre libere a memória de String ou de qualquer estrutura de dado que for usada para não se ter vazamento de memória ao final do uso, como string_free(), vector_free(), vector_str_free(), linked_list_free() e etc.
+	5.1) Como pôde perceber nos itens 2) a 4), eu tentei contornar limitações naturais por usar a linguagem C puro: não ter alguma espécie de tipo parametrizado de maneira não verbosa e mais simples de entender, como generics da linguagem Java ou templates da linguagem C++. 
+	
+	5.2) Ao olhar cada arquivo .h, vai perceber que eu fui muito verboso com algumas funções e repeti várias com pequenas mudanças de parâmetro e nomes, justamente por não ter um recurso que várias linguagens possuem: sobrecarga de função. Sinto muito pela grande verbosidade dos nomes das funções caso encomode, mas o C não possui esse recurso que tornaria as funções bem melhores para chamá-las. Caso se incomode em digitar nomes longos toda vez, uma sugestão é usar apontadores de função, assim pode incomodar menos caso use alguma função com mais frequência.
+	
+	5.3) Várias funções eu retorno tipo booleano para indicar uma possibilidade de falha também por limitação de algo que o C não possui: tratamento de erros try-catch como no Java ou try-exception como no Python. No caso o que mais atrapalha são em funções em que se retorna algum valor armazenado, como vector_at e stack_peek, em que eu tive que deixar um parâmetro específico para servir de retorno, o que é um pouco chato, mas necessário para evitar ao máximo que o usuário tenha que se preocupar em criar variáveis ponteiros (nesses casos do vector_at ou funções semelhantes, basta criar uma variável de tipo correspodente à estrutura e passar o endereço dela com o &) ou que tenha algum comportamento indefinido.
+	
+	5.4) Com o item 5.3) também tenho outra limitação: para ter retorno por parâmetro com tipos compostos (nesse caso String ou alguma outra estrutura de dado) sempre crie uma variável e  *inicialize-a* (usando algum inicizalizador já existente) para não se ter problemas, pois em cada função dessa de retorno por parâmetro, eu apago o conteúdo antigo que esteja armazenado, logo se tiver inicizalizado nada, vai tentar liberar algum lixo de memória e dará problemas. No caso de String (que é o tipo composto de mais uso nesses casos), crie um tipo String e o inicialize com string_new_empty() para não gastar muita memória, aí depois sim usar alguma dessas funções de retorno de parâmetro que citei.
+	
+	5.5) Cada implementação que faço eu uso e abuso bastante da heap, então sempre libere a memória de String ou de qualquer estrutura de dado que for usada para não se ter vazamento de memória ao final do uso, como string_free(), vector_free(), vector_str_free(), linked_list_free() e etc.
    	
    	
