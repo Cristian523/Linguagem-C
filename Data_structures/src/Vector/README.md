@@ -48,7 +48,7 @@
 	
 	5.1) Existem as funções vector_is_ordered() e vector_str_is_ordered() que usam esse campo interno para ver se o vetor está ordenado, então não é necessário usar esse campo diretamente. Além disso, existem as funções vector_check_ordered() e vector_str_check_ordered() que verificam se o vetor está ordenado, mas aqui já é o processo manual, isto é, ver elemento a elemento se estão em ordem.
 	
-	5.2) Se adicionar algum elemento que quebre a ordem, então is_sorted será false. A única forma de tornar is_sorted true é com algum pop_at (vector_pop_at() ou vector_str_pop_at()) ou com algum remove (vector_remove() ou vector_str_remove()) caso remova justamente o elemento que esteja quebrando a ordem ou até mesmo com alguma função de ordenação implementada.
+	5.2) Se adicionar algum elemento que quebre a ordem, então is_sorted será false. A única forma de tornar is_sorted true é com algum pop_at (vector_pop_at() ou vector_str_pop_at()) ou com algum remove (vector_remove() ou vector_str_remove()) caso remova justamente o elemento que esteja quebrando a ordem ou até mesmo com alguma função de ordenação implementada (além de vector_ckeck_ordered() e vector_str_check_ordered(), é claro).
 	
 	* OBS1: As funções vector_pop() e vector_str_pop() não atualizam o campo is_sorted a fim de manter a complexidade constante (isto é, θ(1)). Então, se apenas o último elemento que foi inserido quebrou a ordenação e você use algum desses pop's mencionados, o campo is_sorted permanece false, sendo necessário usar manualmente o vector_check_ordered() ou vector_str_check_ordered().
 		
