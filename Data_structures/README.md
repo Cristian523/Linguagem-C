@@ -87,8 +87,8 @@
 		Reforçando que, se quiser alterar o tipo primitivo, basta comentar o que não quer usar e descomentar o que realmente quer usar
 	
 	
-	* OBSERVAÇÃO2: Apesar de em vários arquivos .h eu criar um tipo com um typedef usando um tipo primitivo (como tipo_vector, tipo_linked_list, etc), não é necessário usar esse tipo criado nas funções diretamente, basta usar o mesmo tipo que foi comentado mais acima caso queira evitar muita verbosidade. 		          
-		Exemplo: Se uma função tiver exigindo algum argumento como tipo_vector, basta usar o tipo declarado na macro de tipos, isto é, double (se seguir o padrão que eu criei) ou o tipo de sua preferência (se tiver escolhido LONG por exemplo, então use long), e por aí vai.
+	* OBSERVAÇÃO2: Apesar de em vários arquivos .h eu criar um tipo com um typedef usando um tipo primitivo (como tipo_vector, tipo_linked_list, etc), não é necessário usar esse tipo criado nas funções diretamente, basta usar o mesmo tipo que foi comentado mais acima caso queira evitar muita verbosidade.
+	Exemplo: Se uma função tiver exigindo algum argumento como tipo_vector, basta usar o tipo declarado na macro de tipos, isto é, double (se seguir o padrão que eu criei) ou o tipo de sua preferência (se tiver escolhido LONG por exemplo, então use long), e por aí vai.
 
 
 
