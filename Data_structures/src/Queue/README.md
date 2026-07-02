@@ -5,7 +5,8 @@
    * OBS: A fim de ter o mesmo padrão como em outras estruturas de dados, foram implementadas as funções queue_free(), queue_to_string(), queue_print(), queue_println(), queue_str_free(), queue_str_to_string(), queue_str_print() e queue_str_println(), que são funções que não operam em tempo θ(1), porém, as funções realmente importantes em uma fila, como um inicializador, uma inserção, uma remoção, uma obtenção de tamanho e uma obtenção do elemento que representa o início da fila são em tempo θ(1).
 
 
-2) O texto abaixo se refere ao arquivo "linked_list.h" na pasta LinkedList
+2) O texto abaixo se refere ao arquivo "linked_list.h" na pasta LinkedList.
+
      Funções que tiver como retorno obtido por parâmetro sendo em um parâmetro com  "tipo_linked_list*" sem áspas não é necessário digitar esse nome, pois pode simplesmente digitar o respectivo tipo equivalente a esse. Por exemplo, se manter o padrão DOUBLE_G que foi deixado em todas as estruturas, pode passar o endereço de uma variável double com o &, ou até mesmo o tipo que tenha selecionado (por exemplo, se escolheu TIPO_LINKED_LIST_INT ao invés do padrão TIPO_LINKED_LIST_DOUBLE_G, pode passar o endereço de um int com o &), não sendo necessário fazer todo esse processo com o nome maior tipo_linked_list.
  
  
