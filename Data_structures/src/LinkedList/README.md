@@ -15,7 +15,7 @@
  4) Diferente como ocorre com Vector e Vector_str, LinkedList e LinkedList_str não possuem tratamento com algum campo interno que verifique se a lista está ordenada. Então, as funções linked_list_insert_ordered() e linked_list_str_insert_ordered() aqui implementadas funcionam corretamente apenas se a lista estiver ordenada.
  
  
-5) Para navegar por uma lista encadeada sem usar qualquer campo interno de forma mais simples, sempre use primeiro alguma função reset (linked_list_reset() ou linked_list_str_reset()) e depois o seguinte:
+5) Para navegar por uma lista encadeada sem usar qualquer campo interno de forma mais simples, sempre use primeiro alguma função reset (linked_list_reset() ou linked_list_str_reset()) e depois use um loop do-while para percorrer os elementos, como está logo abaixo:
 
 
       5.1) Em uma LinkedList:
