@@ -46,6 +46,109 @@ static void next_string(String* cadeia, int* i) {   // Função auxiliar para v�
 
 /* Implementação de algoritmos da matéria de otimizações em grafos */
 
+typedef struct DFS {
+    String vertice;
+    int color;
+    int d;   // tempo de descoberta
+    int f;   // tempo de término
+    String* ant;  // representa o vértice anterior
+} DFS;
+
+
+static void dfs_visit(const Graph* grafo, int* tempo, DFS* vet, DFS* u, const HashTable_sn* tabela) {  // Função recursiva de dfs
+    #define WHITE 1
+    #define GRAY 2
+    #define BLACK 3
+    
+    *tempo = *tempo + 1;
+    u->d = *tempo;
+    u->color = GRAY;
+    
+
+    Vector_str vizinhos = graph_vertex_neighbors_str(grafo, u->vertice);
+    int n = vector_str_size(&vizinhos);
+
+    for (int i = 0; i < n; i++) {
+        tipo_value_number aux;
+        hash_table_sn_get(tabela, vizinhos.vet[i], &aux);
+        int pos_em_vet = aux;
+        
+        if (vet[pos_em_vet].color == WHITE) {
+            vet[pos_em_vet].ant = &(u->vertice);
+            dfs_visit(grafo, tempo, vet, &vet[pos_em_vet], tabela);
+        }
+
+    }
+    vector_str_free(&vizinhos);
+
+    u->color = BLACK;
+    *tempo = *tempo + 1;
+    u->f = *tempo;
+
+    #undef WHITE
+    #undef GRAY
+    #undef BLACK
+}
+
+
+
+static DFS* dfs_auxiliar(const Graph* grafo, int* tempo) {   // funçãp
+    #define WHITE 1
+
+    *tempo = 0;
+    
+    if (graph_is_empty(grafo))
+        return NULL;
+    
+    int n = graph_vertex_size(grafo);
+    DFS* vet = (DFS*) malloc(n * sizeof(DFS));
+    HashTable_sn tabela = hash_table_sn_new_with_size(n);
+
+    for (int i = 0; i < n; i++) {   // Inicializando cada vértice
+        vet[i].vertice = grafo->vertices.vet[i];     // não uso cópias
+        vet[i].color = WHITE;
+        vet[i].d = vet[i].f = 0;
+        vet[i].ant = NULL;
+        hash_table_sn_put(&tabela, vet[i].vertice, i);
+    }   
+
+    
+    for (int i = 0; i < n; i++) {
+        if (vet[i].color == WHITE)
+            dfs_visit(grafo, tempo, vet, &vet[i], &tabela);
+
+    }
+
+
+    #undef WHITE
+    
+    hash_table_sn_free(&tabela);
+    return vet;
+}  
+
+
+void dfs(const Graph* grafo) {
+    int tempo = 0;
+    if (graph_is_empty(grafo)) {
+        printf("\ngrafo vazio!!!\n\n");
+        return;
+    }
+
+    DFS* vet = dfs_auxiliar(grafo, &tempo);
+    int n = graph_vertex_size(grafo);
+    
+    // Imprimindo o resultado final
+    printf("\nTempo total: %d\n", tempo);
+    for (int i = 0; i < n; i++)
+        printf("\nVertex: %s\nAnt: %s\nd: %d\nf: %d\n\n", string_cstr(&vet[i].vertice), vet[i].ant == NULL ? "NULL" : string_cstr(vet[i].ant), vet[i].d, vet[i].f);
+    free(vet);   // Não libero a memória dos campos String pois não foi feito no código uma cópia profunda, o que resultaria em problemas na estrutura do grafo
+    
+
+}
+
+
+
+
 Graph graph_square(const Graph* grafo) {     // Retorna o grafo ao quadrado.
     Graph grafo_retorno = graph_new();
     if (graph_is_empty(grafo))
@@ -80,7 +183,7 @@ Graph graph_square(const Graph* grafo) {     // Retorna o grafo ao quadrado.
         vizinhos = graph_vertex_neighbors_str(grafo, aresta_aux.v);
         for (int j = 0; j < vector_str_size(&vizinhos); j++) {
             vector_str_at(&vizinhos, j, &vertice_aux);
-            if (!string_compare(&vertice_aux, &aresta_aux.u))
+            if (!string_equals(&vertice_aux, &aresta_aux.u))
                 graph_add_edge_str_str(&grafo_retorno, aresta_aux.u, vertice_aux);   // se a aresta já existir
         }
         
@@ -96,7 +199,7 @@ Graph graph_square(const Graph* grafo) {     // Retorna o grafo ao quadrado.
 }
 
 Graph graph_transposed(const Graph* grafo) {    // Retorna um grafo transposto, isto é, com os mesmos vértices, mas as arestas são de direções opostas.
-    // Obs: Este algoritmo não é eficiente devido às inserções!!!
+    
     Graph grafo_retorno = graph_new();
     if (graph_is_empty(grafo))
         return grafo_retorno;
@@ -230,7 +333,7 @@ static BFS* bfs_auxiliar(const Graph* grafo, const char* a) {    // Busca em lar
     BFS* vet = (BFS*) malloc(n * sizeof(BFS));
     
     // Preenchimendo inicial diferente para o vértice passado por parâmetro
-    int posicao = vector_str_binary_search_cstr(&grafo->vertices, a);
+    int posicao = vector_str_search_cstr(&grafo->vertices, a);
     vet[posicao].vertice = grafo->vertices.vet[posicao];   // só estou fazendo isso para não usar cópias
     vet[posicao].color = GRAY;
     vet[posicao].d = 0;   
@@ -284,6 +387,10 @@ static BFS* bfs_auxiliar(const Graph* grafo, const char* a) {    // Busca em lar
     queue_free(&Q);
     hash_table_sn_free(&vertice_numero);
 
+    #undef WHITE
+    #undef GRAY
+    #undef BLACK
+    
     return vet;
 
 }

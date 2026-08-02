@@ -11,20 +11,28 @@ static void imprimir_grau_min_max(const Graph*);
 static void imprimir_grafo(const Graph*);
 
 int main() {
+    Graph grafo = graph_new();
     
-    /*
-    Graph g = graph_path(4);
-    Graph g_ao_quadrado = graph_square(&g);
+    graph_add_vertex(&grafo, "u");
+    graph_add_vertex(&grafo, "v");
+    graph_add_vertex(&grafo, "w");
+    graph_add_vertex(&grafo, "x");
+    graph_add_vertex(&grafo, "y");
+    graph_add_vertex(&grafo, "z");
     
-    graph_println_alternative(&g);
-    printf("\n");
-    graph_println_alternative(&g_ao_quadrado);
-    
-    graph_free(&g);
-    graph_free(&g_ao_quadrado);
-    */
+    graph_add_edge_weight_direction(&grafo, "u", "v", 0, true);
+    graph_add_edge_weight_direction(&grafo, "u", "x", 0, true);
+    graph_add_edge_weight_direction(&grafo, "v", "y", 0, true);
+    graph_add_edge_weight_direction(&grafo, "w", "y", 0, true);
+    graph_add_edge_weight_direction(&grafo, "w", "z", 0, true);
+    graph_add_edge_weight_direction(&grafo, "x", "v", 0, true);
+    graph_add_edge_weight_direction(&grafo, "y", "x", 0, true);
+    graph_add_edge_weight_direction(&grafo, "z", "z", 0, true);
  
     
+    dfs(&grafo); 
+    
+    graph_free(&grafo);
     
     return 0;
 }

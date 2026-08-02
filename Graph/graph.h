@@ -14,18 +14,23 @@ typedef struct Graph {
     HashTable_ew peso_aresta;
 } Graph;
 
-/* OBS: Em todos os algoritmos em que há cópia de elementos ou ter que olhar todos os caracteres de uma string, eu ignoro a complexidade de se fazer essa aço de cada string individualmente. 
+/* OBS: Em todos os algoritmos em que há cópia de elementos ou ter que olhar todos os caracteres de uma string, eu ignoro a complexidade de se fazer essa ação de cada string individualmente. 
 Em outras palavras, para ser mais simples, considero que qualquer varredura dessa individualmente terá complexidade O(1), mesmo que a complexidade seja O(length(s)) sendo s a string
 em questão. Prefiro deixar assim pois de forma geral será usado string em cada vértice com tamanho no máximo 3. */
 
 /* Implementação de algoritmos da matéria de otimizações em grafos */
+
+void dfs(const Graph*);
+// @ Implementação simples do algoritmo de busca em profundidade em que, no final, será apenas impresso o resultado do algoritmo.
+// @ Obs: Se o grafo for vazio, será impresso na tela "grafo vazio!!!"
+
 
 Graph graph_square(const Graph* grafo);    
 // @ Retorna o grafo ao quadrado. Se o grafo for vazio, será retornado um grafo vazio.
 
 Graph graph_transposed(const Graph*);
 // @ Retorna um grafo novo transposto, isto é, com os mesmos vértices, mas as arestas são de direções opostas. Se o grafo for vazio, será retornado um grafo vazio.
-// Obs: Esse algoritmo não é eficiente devido às várias inserções!!!!!
+
 
 
 /* Implementação de algoritmos da matéria de algoritmos em grafos */
@@ -41,7 +46,7 @@ Graph graph_complement(const Graph*);
 // @ Retorna o grafo complementar ao grafo do parâmetro fornecido. Se o parâmetro for nulo, essa função retornará um grafo vazio
 
 void bfs(const Graph*, const char*);
-// @ Implementação simples do algoritmo de busca em largura em que, no final, eu apenas imprimo o resultado do algoritmo.
+// @ Implementação simples do algoritmo de busca em largura em que, no final, será apenas impresso o resultado do algoritmo.
 // @ Obs: Se o grafo for vazio ou o vértice não for encontrado, será imprimido na tela "vértice não encontrado!!!"
 
 bool graph_is_connected(const Graph*);
