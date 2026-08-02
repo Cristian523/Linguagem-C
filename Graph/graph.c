@@ -92,7 +92,7 @@ static void dfs_visit(const Graph* grafo, int* tempo, DFS* vet, DFS* u, const Ha
 
 
 
-static DFS* dfs_auxiliar(const Graph* grafo, int* tempo) {   // funçãp
+static DFS* dfs_auxiliar(const Graph* grafo, int* tempo) {   // função padrão da DFS
     #define WHITE 1
 
     *tempo = 0;
